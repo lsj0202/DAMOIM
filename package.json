@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install"
   },
   "dependencies": {
     "react": "^18",
@@ -14,13 +15,24 @@
     "next": "14.2.3"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "class-variance-authority": "^0.7.0",
+    "classnames": "^2.5.1",
     "eslint": "^8",
-    "eslint-config-next": "14.2.3"
+    "eslint-config-next": "14.2.3",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-storybook": "^0.8.0",
+    "eslint-plugin-tailwindcss": "^3.15.1",
+    "husky": "^8.0.0",
+    "postcss": "^8",
+    "prettier": "^3.2.5",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }
