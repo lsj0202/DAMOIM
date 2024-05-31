@@ -1,5 +1,5 @@
 {
-  "editor.fontSize": 11,
+  "editor.fontSize": 10.5,
   "tailwindCSS.experimental.classRegex": [
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
