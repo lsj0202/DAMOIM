@@ -1,3 +1,39 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "prettier",
+    "plugin:tailwindcss/recommended"
+  ],
+  "rules": {
+    "tailwindcss/classnames-order": [ // 일관성을 위해 클래스 이름을 주문하면 병합 충돌을 좀 더 쉽게 해결할 수 있다.
+      "warn",
+      {
+        "calles": ["cva", "cn"]
+      }
+    ],
+    "tailwindcss/enforces-negative-arbitrary-values": [ // 음의 클래스 이름 없이 음의 임의 값인 클래스 이름을 사용해야한다.
+      "warn",
+      {
+        "calles": ["cva", "cn"]
+      }
+    ],
+    "tailwindcss/enforces-shorthand": [ // 가능하다면 여러 클래스 이름을 약칭으로 병합한다.
+      "warn",
+      {
+        "calles": ["cva", "cn"]
+      }
+    ],
+    "tailwindcss/no-contradicting-classname": [
+      "warn",
+      {
+        "calles": ["cva", "cn"]
+      }
+    ],
+    "tailwindcss/no-custom-classname": [ // Tailwind CSS의 클래스 이름과 옵션 의 값만 허용한다. 
+      "warn",
+      {
+        "calles": ["cva", "cn"]
+      }
+    ]
+  }
 }
