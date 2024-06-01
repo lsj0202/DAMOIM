@@ -1,6 +1,14 @@
 import '@/styles/globals.css';
 import type { Metadata } from 'next';
+import localFont from 'next/font/local';
 import { PropsWithChildren } from 'react';
+
+const pretendard = localFont({
+  src: '../fonts/PretendardVariable.woff2',
+  display: 'swap',
+  weight: '45 920',
+  variable: '--font-pretendard',
+});
 
 export const metadata: Metadata = {
   title: 'DAMOIM',
@@ -12,8 +20,8 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="kr" className={`${pretendard.variable}`}>
+      <body className={pretendard.className}>{children}</body>
     </html>
   );
 };
