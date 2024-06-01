@@ -9,7 +9,10 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        'gradient-to-r-orange': 'linear-gradient(to right, #FF6F0F, #FF9046)',
+        'gradient-to-r-orange': 'linear-gradient(to right, #FF6F0F, #FF9956)',
+      },
+      fontFamily: {
+        pretendard: ['var(--font-pretendard)'],
       },
     },
   },

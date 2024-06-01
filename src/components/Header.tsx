@@ -28,7 +28,7 @@ const Header = () => {
     <Wrapper
       className={cn(
         classNames(
-          'fixed transition ease-in-out bg-white',
+          'fixed transition ease-in-out bg-white z-50',
           showShadow && 'shadow-md ease-in-out',
         ),
       )}
