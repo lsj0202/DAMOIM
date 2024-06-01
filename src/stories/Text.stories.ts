@@ -17,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 export const DefaultText: Story = {
   args: {
     size: 'md',
-    color: 'black',
-    weight: 'bold',
+    color: 'orange',
+    weight: 'semibold',
   },
 };
