@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useInView } from 'react-intersection-observer';
 
 const Home = () => {
-  const { ref, inView } = useInView({ threshold: 0 });
+  const { ref: clubRef, inView } = useInView({ threshold: 0 });
 
   useGSAP(() => {
     gsap.from('#walking', { x: -100, duration: 1 });
@@ -29,7 +29,7 @@ const Home = () => {
           duration: 1,
           stagger: 0.2,
           onComplete: () => {
-            gsap.to('.item', { opacity: 1, y: 0, duration: 0 });
+            gsap.to('.item', { opacity: 1, y: 0 });
           },
         })
         .from('#sub_button', { opacity: 0, y: -20 });
@@ -75,7 +75,7 @@ const Home = () => {
           <div className="my-10 text-xl font-semibold">
             현재 인기있는 스포츠 클럽들을 추천해 드릴게요 🔥
           </div>
-          <div className="flex flex-wrap gap-3" ref={ref}>
+          <div className="flex flex-wrap gap-3" ref={clubRef}>
             <div className="item h-[400px] w-[280px] rounded-lg bg-white shadow-lg">
               인기 스포츠 클럽 영역
             </div>
