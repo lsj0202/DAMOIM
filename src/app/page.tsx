@@ -1,7 +1,7 @@
 'use client';
 
 import { Container, Header } from '@/components';
-import { Text } from '@/components/common';
+import { Button, Text } from '@/components/common';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import Image from 'next/image';
@@ -16,7 +16,7 @@ const Home = () => {
     const TextTl = gsap.timeline();
     TextTl.from('.mainT', { opacity: 0, y: -50, duration: 0.7 })
       .from('.subT', { opacity: 0, y: -20, duration: 0.4 })
-      .from('#main_button', { opacity: 0, y: -20, duration: 0.4 });
+      .from('.mainB', { opacity: 0, y: -20, duration: 0.4 });
   }, []);
 
   useGSAP(() => {
@@ -33,7 +33,7 @@ const Home = () => {
             gsap.to('.club', { opacity: 1, y: 0 });
           },
         })
-        .from('#sub_button', { opacity: 0, y: -20 });
+        .from('.subB', { opacity: 0, y: -20 });
     }
   }, [inView]);
 
@@ -50,12 +50,14 @@ const Home = () => {
             <Text className="subT mt-7" size="md" weight="medium" color="white">
               다모임을 사용하여 다양한 사람들과 다양한 스포츠를 즐겨보세요!
             </Text>
-            <button
-              id="main_button"
-              className="mt-10 w-40 rounded-lg bg-white py-4 font-semibold text-orange-500 hover:bg-slate-100"
+            <Button
+              size="lg"
+              color="orange"
+              bgColor="white"
+              className="mainB mt-12"
             >
               다모임 시작하기
-            </button>
+            </Button>
           </div>
           <div className="flex w-1/3 items-center justify-center">
             <Image
@@ -88,12 +90,14 @@ const Home = () => {
             </div>
           </div>
           <div className="my-8 flex items-center justify-center">
-            <button
-              id="sub_button"
-              className="mt-10 w-40 rounded-lg bg-orange-500 py-4 font-semibold text-white hover:bg-orange-600"
+            <Button
+              size="lg"
+              bgColor="orange"
+              color="white"
+              className="subB mt-12"
             >
               다모임 시작하기
-            </button>
+            </Button>
           </div>
         </Container>
       </div>
