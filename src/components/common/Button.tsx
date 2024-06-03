@@ -9,6 +9,7 @@ type ButtonProps = {
   bgColor?: 'orange' | 'black' | 'white' | 'gray';
   className?: string;
   children: React.ReactNode;
+  disabled?: boolean;
 };
 
 const ButtonVariants = cva('', {
@@ -31,30 +32,53 @@ const ButtonVariants = cva('', {
       orange: 'bg-orange-500',
       gray: 'bg-slate-300',
     },
+    disabled: {
+      true: 'cursor-not-allowed opacity-50',
+      false: '',
+    },
   },
   compoundVariants: [
-    { bgColor: 'white', class: 'transition ease-in-out hover:bg-gray-100' },
-    { bgColor: 'black', class: 'transition ease-in-out hover:bg-gray-900' },
-    { bgColor: 'orange', class: 'transition ease-in-out hover:bg-orange-600' },
-    { bgColor: 'gray', class: 'transition ease-in-out hover:bg-slate-400' },
+    { bgColor: 'white', disabled: false, class: 'hover:bg-gray-100' },
+    { bgColor: 'black', disabled: false, class: 'hover:bg-gray-900' },
+    { bgColor: 'orange', disabled: false, class: 'hover:bg-orange-600' },
+    { bgColor: 'gray', disabled: false, class: 'hover:bg-slate-400' },
   ],
   defaultVariants: {
     size: 'lg',
     color: 'white',
     bgColor: 'orange',
+    disabled: false,
   },
 });
 
 const Button = forwardRef(function Button(
-  { size, color, bgColor, className, children }: ButtonProps,
+  {
+    size,
+    color,
+    bgColor,
+    className,
+    children,
+    disabled,
+    ...props
+  }: ButtonProps,
   ref: React.ForwardedRef<HTMLButtonElement>,
 ) {
   return (
     <button
       ref={ref}
+      disabled={disabled}
       className={cn(
-        classNames(ButtonVariants({ size, color, bgColor }), className),
+        classNames(
+          ButtonVariants({
+            size,
+            color,
+            bgColor,
+            disabled,
+          }),
+          className,
+        ),
       )}
+      {...props}
     >
       {children}
     </button>
