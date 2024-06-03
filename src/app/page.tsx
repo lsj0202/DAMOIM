@@ -7,6 +7,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
 
 const SportsClub = dynamic(() => import('@/components/common/SportsClub'), {
@@ -65,7 +66,7 @@ const Home = () => {
               bgColor="white"
               className="mainB mt-12"
             >
-              다모임 시작하기
+              <Link href="/clubs">다모임 시작하기</Link>
             </Button>
           </Flex>
           <Flex className="w-1/3" items="center" justify="center">
@@ -103,7 +104,7 @@ const Home = () => {
               color="white"
               className="subB mt-12"
             >
-              다모임 시작하기
+              <Link href="/clubs">다모임 시작하기</Link>
             </Button>
           </Flex>
         </Container>
