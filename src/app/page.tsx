@@ -1,11 +1,17 @@
 'use client';
 
 import { Container, Header } from '@/components';
-import { Button, Text } from '@/components/common';
+import { Button, Flex, Text } from '@/components/common';
+import { faker } from '@faker-js/faker';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useInView } from 'react-intersection-observer';
+
+const SportsClub = dynamic(() => import('@/components/common/SportsClub'), {
+  ssr: false,
+});
 
 const Home = () => {
   const { ref: clubRef, inView } = useInView({ threshold: 0 });
@@ -22,7 +28,6 @@ const Home = () => {
   useGSAP(() => {
     if (inView) {
       const itemTl = gsap.timeline();
-
       itemTl
         .from('.club', {
           opacity: 0,
@@ -40,9 +45,13 @@ const Home = () => {
   return (
     <>
       <Header />
-      <div className="flex h-screen items-center justify-center bg-gradient-to-r-orange pt-[60px]">
+      <Flex
+        className="h-screen bg-gradient-to-r-orange pt-[60px]"
+        items="center"
+        justify="center"
+      >
         <Container className="flex h-[80vh] items-center">
-          <div className="flex h-[400px] w-2/3 flex-col">
+          <Flex className="h-[400px] w-2/3" direction="col">
             <Text className="mainT" size="xl" weight="semibold" color="white">
               쉽고, 간편하게 찾아보는 <br />
               스포츠 클럽
@@ -58,38 +67,36 @@ const Home = () => {
             >
               다모임 시작하기
             </Button>
-          </div>
-          <div className="flex w-1/3 items-center justify-center">
+          </Flex>
+          <Flex className="w-1/3" items="center" justify="center">
             <Image
               id="walking"
-              src="/walking.gif"
+              src="/walking.webm"
               width={350}
               height={160}
               alt=""
+              priority
             />
-          </div>
+          </Flex>
         </Container>
-      </div>
+      </Flex>
       <div className="bg-slate-50" style={{ minHeight: 'calc(100vh - 60px )' }}>
         <Container className="flex flex-col">
           <Text className="my-10" size="lg" weight="semibold">
             현재 인기있는 스포츠 클럽들을 추천해 드릴게요 🔥
           </Text>
-          <div className="flex flex-wrap gap-3" ref={clubRef}>
-            <div className="club h-[400px] w-[280px] rounded-lg bg-white shadow-lg">
-              인기 스포츠 클럽 영역
-            </div>
-            <div className="club h-[400px] w-[280px] rounded-lg bg-white shadow-lg">
-              인기 스포츠 클럽 영역
-            </div>
-            <div className="club h-[400px] w-[280px] rounded-lg bg-white shadow-lg">
-              인기 스포츠 클럽 영역
-            </div>
-            <div className="club h-[400px] w-[280px] rounded-lg bg-white shadow-lg">
-              인기 스포츠 클럽 영역
-            </div>
-          </div>
-          <div className="my-8 flex items-center justify-center">
+          <Flex wrap="wrap" gap={12} ref={clubRef}>
+            {[...Array(4)].map((_, index) => (
+              <SportsClub
+                key={index}
+                className="club"
+                imageUrl={faker.image.avatar()}
+                title="주 4회 헬스클럽 오픈!"
+                subTitle="우리동네 헬스장에서 같이 운동해요! 모든 문의는 채팅을 통해 주세요!"
+              />
+            ))}
+          </Flex>
+          <Flex items="center" justify="center" className="my-8">
             <Button
               size="lg"
               bgColor="orange"
@@ -98,7 +105,7 @@ const Home = () => {
             >
               다모임 시작하기
             </Button>
-          </div>
+          </Flex>
         </Container>
       </div>
     </>
