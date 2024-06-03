@@ -7,6 +7,7 @@ type FlexProps = {
   items?: 'start' | 'end' | 'center' | 'stretch';
   justify?: 'start' | 'end' | 'center' | 'between' | 'evenly' | 'around';
   direction?: 'col' | 'row';
+  wrap?: 'wrap' | 'noWrap';
   gap?: CSSProperties['gap'];
   className?: string;
   children?: React.ReactNode;
@@ -32,11 +33,24 @@ const FlexVariants = cva('flex', {
       col: 'flex-col',
       row: 'flex-row',
     },
+    wrap: {
+      wrap: 'flex-wrap',
+      noWrap: 'flex-nowrap',
+    },
   },
 });
 
 const Flex = forwardRef(function Flex(
-  { items, justify, direction, gap, className, children, ...props }: FlexProps,
+  {
+    items,
+    justify,
+    direction,
+    gap,
+    wrap,
+    className,
+    children,
+    ...props
+  }: FlexProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   const StyleGap: CSSProperties = { gap };
@@ -45,7 +59,10 @@ const Flex = forwardRef(function Flex(
     <div
       ref={ref}
       className={cn(
-        classNames(FlexVariants({ items, justify, direction }), className),
+        classNames(
+          FlexVariants({ items, justify, wrap, direction }),
+          className,
+        ),
       )}
       style={StyleGap}
       {...props}
