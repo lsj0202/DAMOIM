@@ -1,12 +1,13 @@
 'use client';
 
 import { Container, Header } from '@/components';
-import ClubBanner from '@/components/Banners/ClubBanner';
+import DamoimBanner from '@/components/Banners/DamoimBanner';
 import { Flex, Input } from '@/components/common';
 import { useRef } from 'react';
 import 'swiper/css';
 import 'swiper/css/autoplay';
-import { Autoplay } from 'swiper/modules';
+import 'swiper/css/navigation';
+import { Autoplay, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide, type SwiperClass } from 'swiper/react';
 
 const ClubsPage = () => {
@@ -31,7 +32,8 @@ const ClubsPage = () => {
         </Flex>
         <div className="relative mt-6 flex w-full flex-col justify-center">
           <Swiper
-            modules={[Autoplay]}
+            navigation={true}
+            modules={[Autoplay, Navigation]}
             spaceBetween={25}
             slidesPerView={1}
             onSwiper={(swiper) => (swiperRef.current = swiper)}
@@ -41,24 +43,10 @@ const ClubsPage = () => {
           >
             {[...Array(3)].map((_, idx) => (
               <SwiperSlide key={idx}>
-                <ClubBanner />
+                <DamoimBanner />
               </SwiperSlide>
             ))}
           </Swiper>
-          <Flex className="mt-7">
-            {/* <button
-              onClick={() => swiperRef.current?.slidePrev()}
-              className="mr-3 flex size-10 items-center justify-center rounded-full bg-white text-black shadow-md"
-            >
-              {'<'}
-            </button>
-            <button
-              onClick={() => swiperRef.current?.slideNext()}
-              className="flex size-10 items-center justify-center rounded-full bg-white text-black shadow-md"
-            >
-              {'>'}
-            </button> */}
-          </Flex>
         </div>
       </Container>
     </>
