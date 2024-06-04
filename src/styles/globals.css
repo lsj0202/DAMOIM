@@ -17,7 +17,6 @@ menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
 	padding: 0;
-	border: 0;
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
@@ -52,4 +51,17 @@ table {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+	opacity: 50%;
+  border-radius: 20px;
+  color: black !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
 }

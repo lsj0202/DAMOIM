@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { forwardRef } from 'react';
 
 type TextProps = {
-  size?: 'xl' | 'lg' | 'md' | 'sm' | 'xs';
+  size?: 'xl' | 'x' | 'lg' | 'md' | 'sm' | 'xs';
   color?: 'white' | 'black' | 'orange' | 'gray';
   weight?: 'bold' | 'semibold' | 'medium' | 'light';
   className?: string;
@@ -15,6 +15,7 @@ const TextVariants = cva('', {
   variants: {
     size: {
       xl: 'text-5xl leading-[55px]',
+      x: 'text-4xl leading-[38px]',
       lg: 'text-xl',
       md: 'text-lg',
       sm: 'text-base',
