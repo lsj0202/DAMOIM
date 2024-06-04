@@ -13,6 +13,8 @@ type Story = StoryObj<typeof meta>;
 
 export const DefaultInput: Story = {
   args: {
-    onSubmit: () => console.log('onSubmit'),
+    onSubmit: (data: { search: string }) => {
+      console.log('Submitted data:', data);
+    },
   },
 };

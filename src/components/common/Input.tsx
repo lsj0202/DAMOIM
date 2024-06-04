@@ -10,6 +10,7 @@ type InputProps = {
   height?: number;
   color?: 'orange' | 'gray' | 'white' | 'black';
   iconColor?: 'orange' | 'gray' | 'white' | 'black';
+  className?: string;
   onSubmit: SubmitHandler<{ search: string }>;
 };
 
@@ -36,6 +37,7 @@ const Input = forwardRef(function Input(
     height,
     color = 'orange',
     iconColor = 'orange',
+    className,
     onSubmit,
     ...props
   }: InputProps,
@@ -48,14 +50,16 @@ const Input = forwardRef(function Input(
 
   return (
     <div
-      ref={ref}
-      className={cn(classNames(InputVariants({ color }), 'border-2 flex'))}
+      className={cn(
+        classNames(InputVariants({ color }), className, 'border-2 flex'),
+      )}
       style={Style}
+      ref={ref}
       {...props}
     >
       <form
-        onSubmit={handleSubmit(onSubmit)}
         className="flex justify-between p-2"
+        onSubmit={handleSubmit(onSubmit)}
       >
         <input
           {...register('search')}
