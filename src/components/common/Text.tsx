@@ -7,6 +7,7 @@ type TextProps = {
   size?: 'xl' | 'x' | 'lg' | 'md' | 'sm' | 'xs';
   color?: 'white' | 'black' | 'orange' | 'gray';
   weight?: 'bold' | 'semibold' | 'medium' | 'light';
+  onClick?: () => void;
   className?: string;
   children: React.ReactNode;
 };
@@ -42,7 +43,7 @@ const TextVariants = cva('', {
 });
 
 const Text = forwardRef(function Text(
-  { size, color, weight, className, children, ...props }: TextProps,
+  { size, color, weight, onClick, className, children, ...props }: TextProps,
   ref: React.ForwardedRef<HTMLSpanElement>,
 ) {
   return (
@@ -52,6 +53,7 @@ const Text = forwardRef(function Text(
       className={cn(
         classNames(TextVariants({ size, color, weight }), className),
       )}
+      onClick={onClick}
     >
       {children}
     </span>

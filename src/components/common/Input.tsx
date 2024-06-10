@@ -11,6 +11,7 @@ type InputProps = {
   color?: 'orange' | 'gray' | 'white' | 'black';
   iconColor?: 'orange' | 'gray' | 'white' | 'black';
   className?: string;
+  onFocus?: () => void;
   onSubmit: SubmitHandler<{ search: string }>;
 };
 
@@ -38,6 +39,7 @@ const Input = forwardRef(function Input(
     color = 'orange',
     iconColor = 'orange',
     className,
+    onFocus,
     onSubmit,
     ...props
   }: InputProps,
@@ -65,6 +67,7 @@ const Input = forwardRef(function Input(
           {...register('search')}
           placeholder="검색어를 입력해주세요"
           className="outline-0"
+          onFocus={onFocus}
           style={{ width: inputWidth }}
         />
         <button type="submit" className="pl-1">

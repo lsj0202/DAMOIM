@@ -1,8 +1,7 @@
 'use client';
 
-import { Container, Header } from '@/components';
-import DamoimBanner from '@/components/Banners/DamoimBanner';
-import { Flex, Input } from '@/components/common';
+import { ClubBanner, Container, DamoimBanner, Header } from '@/components';
+import SearchClubList from '@/components/Clubs/SearchClubList';
 import { useRef } from 'react';
 import 'swiper/css';
 import 'swiper/css/autoplay';
@@ -10,27 +9,23 @@ import 'swiper/css/navigation';
 import { Autoplay, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide, type SwiperClass } from 'swiper/react';
 
+const renderBanners = () => {
+  return [
+    <ClubBanner key="clubBanner" />,
+    <DamoimBanner key="DamooimBanner" />,
+  ];
+};
+
 const ClubsPage = () => {
   const swiperRef = useRef<SwiperClass | null>();
-
-  const handleSubmit = (data: { search: string }) => {
-    console.log('Submitted data:', data);
-  };
+  const banners = renderBanners();
 
   return (
     <>
       <Header />
       <Container className="flex w-full flex-col justify-end pt-[60px]">
-        <Flex items="center" justify="center" className="w-full">
-          <Input
-            className="mt-6"
-            width={400}
-            color="orange"
-            iconColor="orange"
-            onSubmit={handleSubmit}
-          />
-        </Flex>
-        <div className="relative mt-6 flex w-full flex-col justify-center">
+        <SearchClubList />
+        <div className="mt-6 flex w-full flex-col justify-center">
           <Swiper
             navigation={true}
             modules={[Autoplay, Navigation]}
@@ -41,10 +36,8 @@ const ClubsPage = () => {
             autoplay={{ delay: 5000, disableOnInteraction: false }}
             className="w-full"
           >
-            {[...Array(3)].map((_, idx) => (
-              <SwiperSlide key={idx}>
-                <DamoimBanner />
-              </SwiperSlide>
+            {banners.map((banner, index) => (
+              <SwiperSlide key={index}>{banner}</SwiperSlide>
             ))}
           </Swiper>
         </div>
