@@ -30,7 +30,7 @@ const ButtonVariants = cva('', {
       white: 'bg-white',
       black: 'bg-black',
       orange: 'bg-orange-500',
-      gray: 'bg-slate-300',
+      gray: 'bg-slate-400',
     },
     disabled: {
       true: 'cursor-not-allowed opacity-50',
@@ -38,10 +38,10 @@ const ButtonVariants = cva('', {
     },
   },
   compoundVariants: [
-    { bgColor: 'white', disabled: false, class: 'hover:bg-gray-100' },
+    { bgColor: 'white', disabled: false, class: 'hover:bg-gray-300' },
     { bgColor: 'black', disabled: false, class: 'hover:bg-gray-900' },
     { bgColor: 'orange', disabled: false, class: 'hover:bg-orange-600' },
-    { bgColor: 'gray', disabled: false, class: 'hover:bg-slate-400' },
+    { bgColor: 'gray', disabled: false, class: 'hover:bg-slate-600' },
   ],
   defaultVariants: {
     size: 'lg',
