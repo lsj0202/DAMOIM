@@ -1,6 +1,12 @@
 'use client';
 
-import { ClubBanner, Container, DamoimBanner, Header } from '@/components';
+import {
+  ClubBanner,
+  Container,
+  DamoimBanner,
+  Footer,
+  Header,
+} from '@/components';
 import SearchClubList from '@/components/Clubs/SearchClubList';
 import { Flex, SportsClub } from '@/components/common';
 import { faker } from '@faker-js/faker';
@@ -43,7 +49,7 @@ const ClubsPage = () => {
             ))}
           </Swiper>
         </Flex>
-        <div className="my-8 grid grid-cols-4 gap-4">
+        <div className="mb-14 mt-8 grid grid-cols-4 gap-4">
           {[...Array(12)].map((_, index) => (
             <SportsClub
               key={index}
@@ -54,6 +60,7 @@ const ClubsPage = () => {
           ))}
         </div>
       </Container>
+      <Footer />
     </>
   );
 };

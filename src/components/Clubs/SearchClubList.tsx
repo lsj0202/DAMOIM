@@ -123,14 +123,14 @@ const SearchClubList = () => {
                     justify="between"
                   >
                     <Text className="cursor-pointer pl-2">{data.name}</Text>
-                    <Text className="cursor-pointer pr-4">
+                    <Text className="cursor-pointer pr-2">
                       <MdClose />
                     </Text>
                   </Flex>
                 ))}
               </div>
               <Flex
-                className="h-[30px] border-t border-gray-300 pl-[10px] pr-[15px]"
+                className="h-[30px] border-t border-gray-300 px-[10px]"
                 items="center"
                 justify="between"
               >

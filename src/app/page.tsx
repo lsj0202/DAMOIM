@@ -1,6 +1,6 @@
 'use client';
 
-import { Container, Header } from '@/components';
+import { Container, Footer, Header } from '@/components';
 import { Button, Flex, Text } from '@/components/common';
 import { faker } from '@faker-js/faker';
 import { useGSAP } from '@gsap/react';
@@ -109,6 +109,7 @@ const Home = () => {
           </Flex>
         </Container>
       </div>
+      <Footer />
     </>
   );
 };
