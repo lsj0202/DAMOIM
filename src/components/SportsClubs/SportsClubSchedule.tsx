@@ -12,6 +12,16 @@ const SportsClubSchedule = () => {
     Y_DNTS: 129.12775978,
   };
 
+  const schedule = [
+    { day: '월요일', time: '10:00 AM ~ 5:00 PM' },
+    { day: '화요일', time: '10:00 AM ~ 5:00 PM' },
+    { day: '수요일', time: '10:00 AM ~ 5:00 PM' },
+    { day: '목요일', time: '10:00 AM ~ 5:00 PM' },
+    { day: '금요일', time: '10:00 AM ~ 5:00 PM' },
+    { day: '토요일', time: '10:00 AM ~ 5:00 PM' },
+    { day: '일요일', time: '휴무' },
+  ];
+
   return (
     <Flex className="h-[450px] border-b">
       <Flex
@@ -37,13 +47,11 @@ const SportsClubSchedule = () => {
         direction="col"
         gap={5}
       >
-        <Text size="md">월요일: 10:00 AM ~ 5:00 PM</Text>
-        <Text size="md">화요일: 10:00 AM ~ 5:00 PM</Text>
-        <Text size="md">수요일: 10:00 AM ~ 5:00 PM</Text>
-        <Text size="md">목요일: 10:00 AM ~ 5:00 PM</Text>
-        <Text size="md">금요일: 10:00 AM ~ 5:00 PM</Text>
-        <Text size="md">토요일: 10:00 AM ~ 5:00 PM</Text>
-        <Text size="md">일요일: 휴무</Text>
+        {schedule.map(({ day, time }) => (
+          <Text key={day} size="md">
+            {day}: {time}
+          </Text>
+        ))}
       </Flex>
     </Flex>
   );

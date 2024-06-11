@@ -7,7 +7,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useInView } from 'react-intersection-observer';
 
 const SportsClub = dynamic(() => import('@/components/common/SportsClub'), {
@@ -15,7 +15,7 @@ const SportsClub = dynamic(() => import('@/components/common/SportsClub'), {
 });
 
 const Home = () => {
-  console.log('kakao', process.env.NEXT_PUBLIC_KAKAO_MAP_KEY);
+  const router = useRouter();
   const { ref: clubRef, inView } = useInView({ threshold: 0 });
 
   useGSAP(() => {
@@ -66,8 +66,9 @@ const Home = () => {
               color="orange"
               bgColor="white"
               className="mainB mt-12"
+              onClick={() => router.push('/sportsClubs')}
             >
-              <Link href="/sportsClubs">다모임 시작하기</Link>
+              다모임 시작하기
             </Button>
           </Flex>
           <Flex className="w-1/3" items="center" justify="center">
@@ -104,8 +105,9 @@ const Home = () => {
               bgColor="orange"
               color="white"
               className="subB my-6"
+              onClick={() => router.push('/sportsClubs')}
             >
-              <Link href="/sportsClubs">다모임 시작하기</Link>
+              다모임 시작하기
             </Button>
           </Flex>
         </Container>
