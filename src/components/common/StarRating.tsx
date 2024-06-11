@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FaStar, FaStarHalfAlt } from 'react-icons/fa';
+import Flex from './Flex';
 
 const StarRating = () => {
   const [score, setScore] = useState(0);
@@ -13,10 +14,8 @@ const StarRating = () => {
     if (score !== scoreFixed) setScore(scoreFixed);
   };
 
-  console.log('score', score);
-
   return (
-    <div className="flex">
+    <Flex>
       {Array(5)
         .fill(0)
         .map((_, id) => (
@@ -44,7 +43,7 @@ const StarRating = () => {
             />
           </div>
         ))}
-    </div>
+    </Flex>
   );
 };
 

@@ -1,20 +1,12 @@
 'use client';
 
-import { Container, Footer, Header, SportsClubMap } from '@/components';
-import SportsClubMarkers from '@/components/SportsClubs/SportsClubMarker';
+import { Container, Footer, Header } from '@/components';
+import SportsClubReviewBox from '@/components/SportsClubs/SportsClubReviewBox';
+import SportsClubSchedule from '@/components/SportsClubs/SportsClubSchedule';
 import { Button, Flex, Text } from '@/components/common';
 import Image from 'next/image';
-import { useState } from 'react';
 
 const DetailSportsClub = () => {
-  const [map, setMap] = useState(null);
-
-  const clubLocation = {
-    C_NAME: '스포츠 클럽 위치',
-    X_CNTS: 35.17308711,
-    Y_DNTS: 129.12775978,
-  };
-
   return (
     <>
       <Header />
@@ -52,7 +44,7 @@ const DetailSportsClub = () => {
           <Flex
             items="center"
             justify="center"
-            className="h-[350px] w-1/3 bg-slate-100"
+            className="h-[350px] w-1/3 bg-gray-100"
           >
             <Image
               className="rounded-lg"
@@ -63,36 +55,8 @@ const DetailSportsClub = () => {
             />
           </Flex>
         </Flex>
-        <Flex className="h-[450px]">
-          <Flex
-            className="h-full w-1/2 bg-gray-300"
-            direction="col"
-            items="center"
-          >
-            <Text size="md" weight="semibold" className="mt-2">
-              주요 활동 지역
-            </Text>
-            <Flex className="mt-3 w-[90%]">
-              <SportsClubMap setMap={setMap} />
-              <SportsClubMarkers location={clubLocation} map={map} />
-            </Flex>
-          </Flex>
-          <Flex
-            className="h-full w-1/2"
-            items="center"
-            justify="center"
-            direction="col"
-            gap={5}
-          >
-            <Text size="md">월요일: 10:00 AM ~ 5:00 PM</Text>
-            <Text size="md">화요일: 10:00 AM ~ 5:00 PM</Text>
-            <Text size="md">수요일: 10:00 AM ~ 5:00 PM</Text>
-            <Text size="md">목요일: 10:00 AM ~ 5:00 PM</Text>
-            <Text size="md">금요일: 10:00 AM ~ 5:00 PM</Text>
-            <Text size="md">토요일: 10:00 AM ~ 5:00 PM</Text>
-            <Text size="md">일요일: 휴무</Text>
-          </Flex>
-        </Flex>
+        <SportsClubSchedule />
+        <SportsClubReviewBox />
       </Container>
       <Footer />
     </>

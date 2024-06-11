@@ -35,7 +35,7 @@ const LoadKakaoMap = ({ setMap }: MapProps) => {
         src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&autoload=false`}
         onReady={loadKakaoMap}
       />
-      <div id="map" style={{ width: '100%', height: '48vh' }}></div>
+      <div id="map" style={{ width: '100%', height: '44vh' }}></div>
     </>
   );
 };
