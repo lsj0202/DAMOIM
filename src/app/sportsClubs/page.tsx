@@ -6,8 +6,8 @@ import {
   DamoimBanner,
   Footer,
   Header,
+  SearchSportsClubList,
 } from '@/components';
-import SearchClubList from '@/components/Clubs/SearchClubList';
 import { Flex, SportsClub } from '@/components/common';
 import { faker } from '@faker-js/faker';
 import { useRef } from 'react';
@@ -24,15 +24,18 @@ const renderBanners = () => {
   ];
 };
 
-const ClubsPage = () => {
+const SportsClubsPage = () => {
   const swiperRef = useRef<SwiperClass | null>();
   const banners = renderBanners();
 
   return (
     <>
       <Header />
-      <Container className="flex w-full flex-col justify-end pt-[60px]">
-        <SearchClubList />
+      <Container
+        className="flex w-full flex-col pt-[60px]"
+        style={{ minHeight: 'calc(100vh - 60px )' }}
+      >
+        <SearchSportsClubList />
         <Flex className="mt-6 w-full" direction="col" justify="center">
           <Swiper
             navigation={true}
@@ -65,4 +68,4 @@ const ClubsPage = () => {
   );
 };
 
-export default ClubsPage;
+export default SportsClubsPage;

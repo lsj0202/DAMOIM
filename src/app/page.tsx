@@ -15,6 +15,7 @@ const SportsClub = dynamic(() => import('@/components/common/SportsClub'), {
 });
 
 const Home = () => {
+  console.log('kakao', process.env.NEXT_PUBLIC_KAKAO_MAP_KEY);
   const { ref: clubRef, inView } = useInView({ threshold: 0 });
 
   useGSAP(() => {
@@ -66,7 +67,7 @@ const Home = () => {
               bgColor="white"
               className="mainB mt-12"
             >
-              <Link href="/clubs">다모임 시작하기</Link>
+              <Link href="/sportsClubs">다모임 시작하기</Link>
             </Button>
           </Flex>
           <Flex className="w-1/3" items="center" justify="center">
@@ -81,7 +82,7 @@ const Home = () => {
           </Flex>
         </Container>
       </Flex>
-      <div className="bg-slate-50" style={{ minHeight: 'calc(100vh - 60px )' }}>
+      <div className="bg-slate-50">
         <Container className="flex flex-col">
           <Text className="my-10" size="lg" weight="semibold">
             현재 인기있는 스포츠 클럽들을 추천해 드릴게요 🔥
@@ -102,9 +103,9 @@ const Home = () => {
               size="lg"
               bgColor="orange"
               color="white"
-              className="subB mt-12"
+              className="subB my-6"
             >
-              <Link href="/clubs">다모임 시작하기</Link>
+              <Link href="/sportsClubs">다모임 시작하기</Link>
             </Button>
           </Flex>
         </Container>

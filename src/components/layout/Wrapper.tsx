@@ -2,12 +2,15 @@ import classNames from 'classnames';
 
 type WrapperProps = {
   children: React.ReactNode;
+  style?: React.CSSProperties;
   className?: string;
 };
 
-const Wrapper = ({ children, className }: WrapperProps) => {
+const Wrapper = ({ children, style, className }: WrapperProps) => {
   return (
-    <section className={classNames('w-full', className)}>{children}</section>
+    <section className={classNames('w-full', className)} style={style}>
+      {children}
+    </section>
   );
 };
 

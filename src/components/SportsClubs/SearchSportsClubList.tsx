@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { Flex, Input, Text } from '../common';
 
-const SearchClubList = () => {
+const SearchSportsClubList = () => {
   const searchRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
   const [search, setSearch] = useState('');
@@ -154,4 +154,4 @@ const SearchClubList = () => {
   );
 };
 
-export default SearchClubList;
+export default SearchSportsClubList;
