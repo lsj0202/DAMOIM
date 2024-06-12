@@ -1,4 +1,5 @@
 import '@/styles/globals.css';
+import { OverlayProvider } from '@toss/use-overlay';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { PropsWithChildren } from 'react';
@@ -21,7 +22,9 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="kr" className={`${pretendard.variable}`}>
-      <body className={pretendard.className}>{children}</body>
+      <body className={pretendard.className}>
+        <OverlayProvider>{children}</OverlayProvider>
+      </body>
     </html>
   );
 };
