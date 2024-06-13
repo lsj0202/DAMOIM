@@ -1,8 +1,8 @@
 import '@/styles/globals.css';
-import { OverlayProvider } from '@toss/use-overlay';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { PropsWithChildren } from 'react';
+import Provider from './provider';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -23,7 +23,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="kr" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
-        <OverlayProvider>{children}</OverlayProvider>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
