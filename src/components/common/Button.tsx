@@ -7,6 +7,7 @@ type ButtonProps = {
   size?: 'xl' | 'lg' | 'md' | 'sm';
   color?: 'orange' | 'black' | 'white' | 'gray';
   bgColor?: 'orange' | 'black' | 'white' | 'gray';
+  onClick?: () => void;
   className?: string;
   children: React.ReactNode;
   disabled?: boolean;
@@ -56,6 +57,7 @@ const Button = forwardRef(function Button(
     size,
     color,
     bgColor,
+    onClick,
     className,
     children,
     disabled,
@@ -67,6 +69,7 @@ const Button = forwardRef(function Button(
     <button
       ref={ref}
       disabled={disabled}
+      onClick={onClick}
       className={cn(
         classNames(
           ButtonVariants({

@@ -1,12 +1,27 @@
 'use client';
 
-import { Container, Footer, Header } from '@/components';
-import SportsClubReviewBox from '@/components/SportsClubs/SportsClubReviewBox';
-import SportsClubSchedule from '@/components/SportsClubs/SportsClubSchedule';
+import {
+  Container,
+  Footer,
+  Header,
+  SportsClubReviewItem,
+  SportsClubSchedule,
+} from '@/components';
 import { Button, Flex, Text } from '@/components/common';
 import Image from 'next/image';
 
 const DetailSportsClub = () => {
+  const reviews = [
+    {
+      name: '이상진',
+      rating: '★★★★★',
+      clubName: '헬스 클럽',
+      imageSrc: '/imgs/mockImg.jpeg',
+      reviewText:
+        '지금 당장 가입하세요! 테니스 클럽에 가입하고 더 나은 삶을 살 수 있게 되었습니다. 지금 당장 가입하세요! 테니스 클럽에 가입하고 더 나은 삶을 살 수 있게 되었습니다.',
+    },
+  ];
+
   return (
     <>
       <Header />
@@ -56,7 +71,23 @@ const DetailSportsClub = () => {
           </Flex>
         </Flex>
         <SportsClubSchedule />
-        <SportsClubReviewBox />
+        <Flex className="min-h-[400px]" direction="col">
+          <Text size="lg" weight="semibold" className="my-3">
+            리뷰 보기
+          </Text>
+          <div className="grid grid-cols-2 gap-4">
+            {reviews.map((review, index) => (
+              <SportsClubReviewItem
+                key={index}
+                name={review.name}
+                clubName={review.clubName}
+                rating={review.rating}
+                imageSrc={review.imageSrc}
+                reviewText={review.reviewText}
+              />
+            ))}
+          </div>
+        </Flex>
       </Container>
       <Footer />
     </>

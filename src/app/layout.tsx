@@ -2,6 +2,7 @@ import '@/styles/globals.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { PropsWithChildren } from 'react';
+import Provider from './provider';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -21,7 +22,9 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="kr" className={`${pretendard.variable}`}>
-      <body className={pretendard.className}>{children}</body>
+      <body className={pretendard.className}>
+        <Provider>{children}</Provider>
+      </body>
     </html>
   );
 };
