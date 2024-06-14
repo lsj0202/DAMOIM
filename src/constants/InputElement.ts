@@ -36,3 +36,18 @@ export const InputElement = [
     InputText: '간단한 자기소개를 입력해주세요',
   },
 ];
+
+export const LoginElement = [
+  {
+    id: 0,
+    title: '이메일',
+    InputValue: 'email',
+    InputText: '이메일을 입력해주세요',
+  },
+  {
+    id: 1,
+    title: '비밀번호',
+    InputValue: 'password',
+    InputText: '비밀번호를 입력해주세요',
+  },
+];

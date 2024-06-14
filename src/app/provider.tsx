@@ -16,6 +16,8 @@ const Provider = ({ children }: ProviderProps) => {
         defaultOptions: {
           queries: {
             staleTime: 60 * 1000,
+            refetchOnWindowFocus: false,
+            retry: false,
           },
         },
       }),

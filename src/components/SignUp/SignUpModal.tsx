@@ -15,12 +15,6 @@ interface SignUpModalProps {
 const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, close }) => {
   const { register, handleSubmit, setValue } = useForm<UserProfile>();
 
-  const { signUpMutate } = useSignUp({ isOpen, close });
-
-  const onSubmit = async (formData: UserProfile) => {
-    await signUpMutate(formData);
-  };
-
   useEffect(() => {
     setValue('email', '');
     setValue('password', '');
@@ -30,6 +24,12 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, close }) => {
     setValue('location', '');
     setValue('introduce', '');
   }, [setValue]);
+
+  const { signUpMutate } = useSignUp({ isOpen, close });
+
+  const onSubmit = async (formData: UserProfile) => {
+    await signUpMutate(formData);
+  };
 
   return (
     isOpen && (

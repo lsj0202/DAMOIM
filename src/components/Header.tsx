@@ -1,9 +1,12 @@
+import { useMyProfile } from '@/hooks/user/useMyProfile';
+import { UserProfile } from '@/types/UserProfile';
 import { useOverlay } from '@toss/use-overlay';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import LoginModal from './Login/LoginModal';
 import SignUpModal from './SignUp/SignUpModal';
-import { Flex, Text } from './common';
+import { Button, Flex, Text } from './common';
+import UserIcon from './common/UserIcon';
 import Container from './layout/Container';
 import Wrapper from './layout/Wrapper';
 
@@ -23,6 +26,10 @@ const Header = () => {
     ));
   };
 
+  const { data: userProfile } = useMyProfile();
+
+  const userInfo = userProfile?.user_metadata as UserProfile;
+
   return (
     <Wrapper className="fixed z-50 bg-white shadow-md transition ease-in-out">
       <Container>
@@ -35,13 +42,26 @@ const Header = () => {
             className="cursor-pointer"
             onClick={() => router.push('/')}
           />
-          <Flex gap={20}>
-            <Text className="cursor-pointer" onClick={handleSignUpModal}>
-              회원가입
-            </Text>
-            <Text className="cursor-pointer" onClick={handleSignInModal}>
-              로그인
-            </Text>
+          <Flex items="center" gap={20}>
+            {userProfile ? (
+              <>
+                <Button size="md">스포츠 클럽 생성</Button>
+                <div
+                  onClick={() => router.push(`/userProfile/${userProfile.id}`)}
+                >
+                  <UserIcon />
+                </div>
+              </>
+            ) : (
+              <>
+                <Text className="cursor-pointer" onClick={handleSignUpModal}>
+                  회원가입
+                </Text>
+                <Text className="cursor-pointer" onClick={handleSignInModal}>
+                  로그인
+                </Text>
+              </>
+            )}
           </Flex>
         </header>
       </Container>

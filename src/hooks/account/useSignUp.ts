@@ -34,7 +34,10 @@ export const useSignUp = ({ close }: ModalProps) => {
     mutationFn: signUp,
     onSuccess: () => {
       close();
-      console.log('성공');
+      alert('회원 가입에 성공하셨어요!');
+    },
+    onError: () => {
+      alert('회원가입에 실패하셨어요.');
     },
   });
 
