@@ -51,6 +51,7 @@
     "eslint-plugin-tailwindcss": "^3.15.1",
     "gsap": "^3.12.5",
     "husky": "^8.0.0",
+    "nanoid": "^5.0.7",
     "postcss": "^8",
     "prettier": "^3.2.5",
     "react-hook-form": "^7.51.5",

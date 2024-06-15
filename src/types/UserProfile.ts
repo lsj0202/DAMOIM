@@ -7,3 +7,5 @@ export type UserProfile = {
   location: string;
   introduce: string;
 };
+
+export type EditUserProfile = Omit<UserProfile, 'email' | 'password'>;

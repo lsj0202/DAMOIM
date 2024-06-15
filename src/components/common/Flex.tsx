@@ -1,7 +1,7 @@
 import { cn } from '@/utils';
 import { cva } from 'class-variance-authority';
 import classNames from 'classnames';
-import { CSSProperties, ForwardedRef, forwardRef } from 'react';
+import { CSSProperties, ForwardedRef, HTMLAttributes, forwardRef } from 'react';
 
 type FlexProps = {
   items?: 'start' | 'end' | 'center' | 'stretch';
@@ -11,7 +11,7 @@ type FlexProps = {
   gap?: CSSProperties['gap'];
   className?: string;
   children?: React.ReactNode;
-};
+} & HTMLAttributes<HTMLDivElement>;
 
 const FlexVariants = cva('flex', {
   variants: {

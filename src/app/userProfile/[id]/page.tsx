@@ -1,11 +1,13 @@
 'use client';
 
 import { Container, Footer, Header, SportsClubReviewItem } from '@/components';
+import EditUserProfile from '@/components/User/EditUserProfile';
 import { Button, Flex, Text, UserIcon } from '@/components/common';
 import { useLogout } from '@/hooks/account/useLogout';
 import { useMyProfile } from '@/hooks/user/useMyProfile';
 import { useUserProfile } from '@/hooks/user/useUserProfile';
 import { UserProfile } from '@/types/UserProfile';
+import { useOverlay } from '@toss/use-overlay';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
@@ -18,10 +20,15 @@ const UserProfilePage = () => {
 
   const { logoutMutate } = useLogout();
 
-  console.log('data_reason', myProfile);
-  console.log('user_reason', userProfile);
-
   const userInfo: UserProfile = userProfile;
+
+  const overlay = useOverlay();
+
+  const handleEditUserProfileModal = () => {
+    overlay.open(({ isOpen, close }) => (
+      <EditUserProfile isOpen={isOpen} close={close} />
+    ));
+  };
 
   const reviews = [
     {
@@ -92,7 +99,9 @@ const UserProfilePage = () => {
           {myProfile && myProfile.id === userId && (
             <Flex className="w-1/2" justify="end" items="center">
               <Flex direction="col" gap={10}>
-                <Button size="md">편집하기</Button>
+                <Button size="md" onClick={handleEditUserProfileModal}>
+                  편집하기
+                </Button>
                 <Button size="md" bgColor="gray" onClick={() => logoutMutate()}>
                   로그아웃
                 </Button>
