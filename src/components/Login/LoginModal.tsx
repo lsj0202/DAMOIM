@@ -19,8 +19,8 @@ const LoginModal = ({ isOpen, close }: ModalProps) => {
 
   const { loginMutate } = useLogin({ isOpen, close });
 
-  const onSubmit = async (formData: LoginModalProps) => {
-    await loginMutate(formData);
+  const onSubmit = (formData: LoginModalProps) => {
+    loginMutate(formData);
   };
 
   useEffect(() => {

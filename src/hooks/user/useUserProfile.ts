@@ -2,24 +2,20 @@ import { UserProfile } from '@/constants/UserKey';
 import supabase from '@/utils/supabase';
 import { useQuery } from '@tanstack/react-query';
 
-const user = async ({ userId }: { userId: string }) => {
+const user = async (userId: string) => {
   const { data, error } = await supabase
     .from('userinfo')
     .select('*')
     .eq('id', userId)
     .single();
 
-  if (error) {
-    console.error('Error fetching user:', error);
-    return null;
-  }
-  return data;
+  if (!error) return data;
 };
 
-export const useUserProfile = () => {
+export const useUserProfile = (userId: string) => {
   const { data, ...queries } = useQuery({
-    queryKey: [UserProfile],
-    queryFn: () => user,
+    queryKey: [UserProfile, userId],
+    queryFn: () => user(userId),
   });
 
   return { data, ...queries };

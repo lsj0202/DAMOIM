@@ -1,13 +1,15 @@
-import { CSSProperties } from 'react';
+import { cn } from '@/utils';
+import classNames from 'classnames';
+import { CSSProperties, HTMLAttributes } from 'react';
 import { FaUser } from 'react-icons/fa';
 
 type UserIconProps = {
   size?: number;
   iconSize?: number;
-};
-// & HTMLAttributes<HTMLDivElement>;
+  className?: string;
+} & HTMLAttributes<HTMLDivElement>;
 
-const UserIcon = ({ size = 40, iconSize = 20 }: UserIconProps) => {
+const UserIcon = ({ size = 40, iconSize = 20, className }: UserIconProps) => {
   const wrapperStyle: CSSProperties = {
     width: size,
     height: size,
@@ -16,7 +18,6 @@ const UserIcon = ({ size = 40, iconSize = 20 }: UserIconProps) => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    cursor: 'pointer',
   };
 
   const iconStyle: CSSProperties = {
@@ -25,7 +26,7 @@ const UserIcon = ({ size = 40, iconSize = 20 }: UserIconProps) => {
   };
 
   return (
-    <div style={wrapperStyle}>
+    <div style={wrapperStyle} className={cn(classNames(className))}>
       <FaUser style={iconStyle} />
     </div>
   );

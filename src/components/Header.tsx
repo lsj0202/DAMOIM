@@ -1,5 +1,4 @@
 import { useMyProfile } from '@/hooks/user/useMyProfile';
-import { UserProfile } from '@/types/UserProfile';
 import { useOverlay } from '@toss/use-overlay';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -26,9 +25,7 @@ const Header = () => {
     ));
   };
 
-  const { data: userProfile } = useMyProfile();
-
-  const userInfo = userProfile?.user_metadata as UserProfile;
+  const { data: myProfile } = useMyProfile();
 
   return (
     <Wrapper className="fixed z-50 bg-white shadow-md transition ease-in-out">
@@ -43,13 +40,13 @@ const Header = () => {
             onClick={() => router.push('/')}
           />
           <Flex items="center" gap={20}>
-            {userProfile ? (
+            {myProfile ? (
               <>
                 <Button size="md">스포츠 클럽 생성</Button>
                 <div
-                  onClick={() => router.push(`/userProfile/${userProfile.id}`)}
+                  onClick={() => router.push(`/userProfile/${myProfile.id}`)}
                 >
-                  <UserIcon />
+                  <UserIcon className="cursor-pointer" />
                 </div>
               </>
             ) : (

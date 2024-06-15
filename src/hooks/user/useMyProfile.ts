@@ -1,7 +1,7 @@
 import { myProfile } from '@/constants/UserKey';
 import supabase from '@/utils/supabase';
 import { useQuery } from '@tanstack/react-query';
-import { useSession } from '../account/useSession';
+import { useAuth } from '../account/useAuth';
 
 const user = async () => {
   const { data, error } = await supabase.auth.getUser();
@@ -10,12 +10,12 @@ const user = async () => {
 };
 
 export const useMyProfile = () => {
-  const { data: session } = useSession();
+  const { user: enabledUser } = useAuth();
 
   const { data, ...queries } = useQuery({
     queryKey: [myProfile],
-    queryFn: () => user,
-    enabled: !!session,
+    queryFn: user,
+    enabled: !!enabledUser,
   });
 
   return { data, ...queries };
