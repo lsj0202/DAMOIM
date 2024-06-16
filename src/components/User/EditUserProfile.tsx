@@ -1,15 +1,24 @@
 import { EditUserPrfileElement } from '@/constants/InputElement';
-import { useMyProfile } from '@/hooks/user/useMyProfile';
+import { useEditUserProfile } from '@/hooks/user/useEditUserProfile';
+import { useUserProfile } from '@/hooks/user/useUserProfile';
 import { ModalProps } from '@/types/Modal';
-import { EditUserProfile, UserProfile } from '@/types/UserProfile';
+import { EditUserProfile } from '@/types/UserProfile';
+import supabase from '@/utils/supabase';
+import { nanoid } from 'nanoid';
+import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Flex, Text } from '../common';
 import ModalWrapper from '../layout/ModalWrapper';
 
 const EditUserProfileModal = ({ isOpen, close }: ModalProps) => {
-  const { data: myProfile } = useMyProfile();
-  const myProfileInfo = myProfile?.user_metadata as UserProfile;
+  const { id } = useParams();
+
+  const { data: myProfile } = useUserProfile(String(id));
+
+  const myProfileInfo = myProfile as EditUserProfile;
+  const myId = myProfile?.id as string;
+
   const { register, handleSubmit, setValue } = useForm<EditUserProfile>({
     defaultValues: {
       name: '',
@@ -25,45 +34,45 @@ const EditUserProfileModal = ({ isOpen, close }: ModalProps) => {
       Object.keys(myProfileInfo).forEach((key) => {
         setValue(
           key as keyof EditUserProfile,
-          myProfileInfo[key as keyof UserProfile],
+          myProfileInfo[key as keyof EditUserProfile],
         );
       });
     }
   }, [myProfileInfo, setValue]);
-
-  const onSubmit = async (data: EditUserProfile) => {
-    console.log(data);
-  };
 
   const [avatarPreview, setAvatarPreview] = useState<string | undefined>(
     myProfileInfo?.avatar_url,
   );
 
   const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    // const file = e.target.files?.[0];
-    // if (file) {
-    //   const newFileName = uuid();
-    //   const { data, error } = await supabase.storage
-    //     .from('Image')
-    //     .upload(`products/${newFileName}`, file);
-    //   if (error) {
-    //     console.log('파일이 업로드 되지 않습니다.', error);
-    //     return;
-    //   }
-    //   const {
-    //     data: { publicUrl },
-    //   } = supabase.storage.from('Image').getPublicUrl(data.path);
-    //   if (publicUrl) {
-    //     setAvatarPreview(publicUrl);
-    //     setValue('avatar_url', publicUrl);
-    //   }
-    // }
+    const file = e.target.files?.[0];
+    if (file) {
+      const newFileName = nanoid();
+      const { data, error } = await supabase.storage
+        .from('damoim')
+        .upload(`products/${newFileName}`, file);
+      if (error) return;
+
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from('damoim').getPublicUrl(data.path);
+      if (publicUrl) {
+        setAvatarPreview(publicUrl);
+        setValue('avatar_url', publicUrl);
+      }
+    }
+  };
+
+  const { editUserProfileMutate } = useEditUserProfile({ close });
+
+  const handleEditUserProfile = (formData: EditUserProfile) => {
+    editUserProfileMutate({ data: formData, id: myId });
   };
 
   return (
     isOpen && (
       <ModalWrapper isOpen={isOpen} close={close}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(handleEditUserProfile)}>
           <Flex
             className="h-[550px] w-[450px] rounded-lg bg-white p-5"
             direction="col"
@@ -104,7 +113,7 @@ const EditUserProfileModal = ({ isOpen, close }: ModalProps) => {
                   })}
                   defaultValue={
                     myProfileInfo?.[
-                      inputData.InputValue as keyof UserProfile
+                      inputData.InputValue as keyof EditUserProfile
                     ] || ''
                   }
                   type={inputData.InputValue === 'age' ? 'number' : 'text'}
@@ -116,7 +125,7 @@ const EditUserProfileModal = ({ isOpen, close }: ModalProps) => {
               type="submit"
               className="mt-5 rounded-md bg-orange-500 p-3 text-white"
             >
-              제출하기
+              수정하기
             </button>
           </Flex>
         </form>

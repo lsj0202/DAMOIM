@@ -8,7 +8,7 @@ type LoginProps = {
   password: string;
 };
 
-export const login = async ({ email, password }: LoginProps) => {
+const login = async ({ email, password }: LoginProps) => {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,

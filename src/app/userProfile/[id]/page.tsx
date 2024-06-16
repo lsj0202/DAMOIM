@@ -69,7 +69,7 @@ const UserProfilePage = () => {
             {userInfo?.avatar_url.length > 0 ? (
               <Image
                 className="rounded-lg"
-                src="/imgs/mockImg.jpeg"
+                src={userInfo?.avatar_url}
                 width={200}
                 height={200}
                 alt=""
@@ -93,6 +93,7 @@ const UserProfilePage = () => {
                 <Text size="md">{userInfo?.age}살</Text> |
                 <Text size="md">{userInfo?.location} 거주</Text>
               </Flex>
+              <Text className="mt-2">{userInfo?.introduce}</Text>
             </Flex>
           </Flex>
 
