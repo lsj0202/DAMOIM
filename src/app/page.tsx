@@ -2,7 +2,6 @@
 
 import { Container, Footer, Header } from '@/components';
 import { Button, Flex, Text } from '@/components/common';
-import { faker } from '@faker-js/faker';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import dynamic from 'next/dynamic';
@@ -93,7 +92,7 @@ const Home = () => {
               <SportsClub
                 key={index}
                 className="club"
-                imageUrl={faker.image.avatar()}
+                imageUrl="/imgs/mockImg.jpeg"
                 title="주 4회 헬스클럽 오픈!"
                 subTitle="우리동네 헬스장에서 같이 운동해요! 모든 문의는 채팅을 통해 주세요!"
               />

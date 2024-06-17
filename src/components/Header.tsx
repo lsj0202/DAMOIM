@@ -1,11 +1,11 @@
 import { useMyProfile } from '@/hooks/user/useMyProfile';
+import { useUserProfile } from '@/hooks/user/useUserProfile';
 import { useOverlay } from '@toss/use-overlay';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import LoginModal from './Login/LoginModal';
 import SignUpModal from './SignUp/SignUpModal';
-import { Button, Flex, Text } from './common';
-import UserIcon from './common/UserIcon';
+import { Button, Flex, Text, UserIcon } from './common';
 import Container from './layout/Container';
 import Wrapper from './layout/Wrapper';
 
@@ -26,6 +26,7 @@ const Header = () => {
   };
 
   const { data: myProfile } = useMyProfile();
+  const { data: userProfile } = useUserProfile(myProfile?.id || '');
 
   return (
     <Wrapper className="fixed z-50 bg-white shadow-md transition ease-in-out">
@@ -46,7 +47,17 @@ const Header = () => {
                 <div
                   onClick={() => router.push(`/userProfile/${myProfile.id}`)}
                 >
-                  <UserIcon className="cursor-pointer" />
+                  {userProfile?.avatar_url ? (
+                    <Image
+                      src={userProfile.avatar_url}
+                      width={40}
+                      height={40}
+                      className="cursor-pointer rounded-full border border-black"
+                      alt=""
+                    />
+                  ) : (
+                    <UserIcon className="cursor-pointer" />
+                  )}
                 </div>
               </>
             ) : (

@@ -1,4 +1,3 @@
-import { EditUserPrfileElement } from '@/constants/InputElement';
 import { useEditUserProfile } from '@/hooks/user/useEditUserProfile';
 import { useUserProfile } from '@/hooks/user/useUserProfile';
 import { ModalProps } from '@/types/Modal';
@@ -30,14 +29,11 @@ const EditUserProfileModal = ({ isOpen, close }: ModalProps) => {
   });
 
   useEffect(() => {
-    if (myProfileInfo) {
-      Object.keys(myProfileInfo).forEach((key) => {
-        setValue(
-          key as keyof EditUserProfile,
-          myProfileInfo[key as keyof EditUserProfile],
-        );
-      });
-    }
+    setValue('name', myProfileInfo?.name);
+    setValue('age', myProfileInfo?.age);
+    setValue('location', myProfileInfo?.location);
+    setValue('introduce', myProfileInfo?.introduce);
+    setValue('avatar_url', myProfileInfo?.avatar_url);
   }, [myProfileInfo, setValue]);
 
   const [avatarPreview, setAvatarPreview] = useState<string | undefined>(
@@ -102,25 +98,50 @@ const EditUserProfileModal = ({ isOpen, close }: ModalProps) => {
                 <Text className="text-gray-500">이미지 업로드</Text>
               </Flex>
             </label>
-
-            {EditUserPrfileElement.map((inputData) => (
-              <Flex key={inputData.id} direction="col" gap={3}>
-                <Text>{inputData.title}</Text>
-                <input
-                  className="w-[full] flex-1 rounded-md border p-3"
-                  {...register(inputData.InputValue as keyof EditUserProfile, {
-                    required: inputData.InputText,
-                  })}
-                  defaultValue={
-                    myProfileInfo?.[
-                      inputData.InputValue as keyof EditUserProfile
-                    ] || ''
-                  }
-                  type={inputData.InputValue === 'age' ? 'number' : 'text'}
-                  placeholder={inputData.InputText}
-                />
-              </Flex>
-            ))}
+            <Flex direction="col" gap={3}>
+              <Text>이름</Text>
+              <input
+                className="w-[full] flex-1 rounded-md border p-3"
+                {...register('name', {
+                  required: '이름을 입력해주세요',
+                })}
+                type="text"
+                placeholder="이름을 입력해주세요"
+              />
+            </Flex>
+            <Flex direction="col" gap={3}>
+              <Text>나이</Text>
+              <input
+                className="w-[full] flex-1 rounded-md border p-3"
+                {...register('age', {
+                  required: '나이를 입력해주세요',
+                })}
+                type="number"
+                placeholder="나이를 입력해주세요"
+              />
+            </Flex>
+            <Flex direction="col" gap={3}>
+              <Text>지역</Text>
+              <input
+                className="w-[full] flex-1 rounded-md border p-3"
+                {...register('location', {
+                  required: '지역을 입력해주세요',
+                })}
+                type="text"
+                placeholder="지역을 입력해주세요"
+              />
+            </Flex>
+            <Flex direction="col" gap={3}>
+              <Text>자기소개</Text>
+              <input
+                className="w-[full] flex-1 rounded-md border p-3"
+                {...register('introduce', {
+                  required: '자기소개를 입력해주세요',
+                })}
+                type="text"
+                placeholder="자기소개를 입력해주세요"
+              />
+            </Flex>
             <button
               type="submit"
               className="mt-5 rounded-md bg-orange-500 p-3 text-white"
