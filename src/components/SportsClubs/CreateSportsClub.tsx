@@ -1,8 +1,10 @@
 import { useCreateSportsClub } from '@/hooks/sportsClub/useCreateSportsClub';
 import useDebounce from '@/hooks/useDebounce';
 import { ModalProps } from '@/types/Modal';
+import supabase from '@/utils/supabase';
+import { nanoid } from 'nanoid';
 import Script from 'next/script';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { MdClose } from 'react-icons/md';
 import { Button, Flex, Text } from '../common';
@@ -15,6 +17,7 @@ type Schedule = {
 };
 
 export type CreateSportsClub = {
+  id?: number;
   title: string;
   subTitle?: string;
   location: string;
@@ -24,6 +27,7 @@ export type CreateSportsClub = {
   heart: number;
   avgAge: number;
   avgReview: number;
+  clubPoster?: string;
 };
 
 declare global {
@@ -45,6 +49,7 @@ const CreateSportsClub = ({ isOpen, close }: ModalProps) => {
         heart: 0,
         avgAge: 0,
         avgReview: 0,
+        clubPoster: '',
       },
     });
 
@@ -74,6 +79,29 @@ const CreateSportsClub = ({ isOpen, close }: ModalProps) => {
         setValue('longitude', result[0].x);
       }
     });
+  };
+
+  const [clubPoster, setClubPoster] = useState('');
+
+  const handleAddClubPoster = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const newFileName = nanoid();
+      const { data, error } = await supabase.storage
+        .from('damoim')
+        .upload(`products/${newFileName}`, file);
+      if (error) return;
+
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from('damoim').getPublicUrl(data.path);
+      if (publicUrl) {
+        setClubPoster(publicUrl);
+        setValue('clubPoster', publicUrl);
+      }
+    }
   };
 
   const { createSportsClubMutate } = useCreateSportsClub({ close });
@@ -106,6 +134,25 @@ const CreateSportsClub = ({ isOpen, close }: ModalProps) => {
               onSubmit={handleSubmit(onSubmit)}
               className="space-y-4 overflow-y-auto"
             >
+              <Flex
+                className="relative size-[100px] cursor-pointer rounded-full bg-gray-200"
+                items="center"
+                justify="center"
+                style={{
+                  backgroundImage: `url(${clubPoster})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  zIndex: 100,
+                }}
+              >
+                <input
+                  id="avatarInput"
+                  type="file"
+                  onChange={handleAddClubPoster}
+                  className="absolute inset-0 size-full cursor-pointer opacity-0"
+                />
+                <Text className="text-gray-500">이미지 업로드</Text>
+              </Flex>
               <Flex direction="col" gap={5}>
                 <label>스포츠 클럽명</label>
                 <input

@@ -1,17 +1,13 @@
 'use client';
 
 import { Container, Footer, Header } from '@/components';
-import { Button, Flex, Text } from '@/components/common';
+import { Button, Flex, SportsClub, Text } from '@/components/common';
+import { useGetSportsClub } from '@/hooks/sportsClub/useGetSportsClub';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useInView } from 'react-intersection-observer';
-
-const SportsClub = dynamic(() => import('@/components/common/SportsClub'), {
-  ssr: false,
-});
 
 const Home = () => {
   const router = useRouter();
@@ -42,6 +38,9 @@ const Home = () => {
         .from('.subB', { opacity: 0, y: -20 });
     }
   }, [inView]);
+
+  const { data: sportsClubs } = useGetSportsClub();
+  const sportsClub = sportsClubs?.data;
 
   return (
     <>
@@ -88,13 +87,13 @@ const Home = () => {
             현재 인기있는 스포츠 클럽들을 추천해 드릴게요 🔥
           </Text>
           <Flex wrap="wrap" gap={12} ref={clubRef}>
-            {[...Array(4)].map((_, index) => (
+            {sportsClub?.map((sportsClub) => (
               <SportsClub
-                key={index}
+                key={sportsClub.id}
                 className="club"
-                imageUrl="/imgs/mockImg.jpeg"
-                title="주 4회 헬스클럽 오픈!"
-                subTitle="우리동네 헬스장에서 같이 운동해요! 모든 문의는 채팅을 통해 주세요!"
+                imageUrl={sportsClub.clubPoster}
+                title={sportsClub.title}
+                subTitle={sportsClub.subTitle}
               />
             ))}
           </Flex>

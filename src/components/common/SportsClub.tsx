@@ -35,13 +35,17 @@ const SportsClub = forwardRef(function SportsClub(
         <AiOutlineEllipsis className="cursor-pointer" size={20} />
       </Flex>
       <div className="relative size-full grow">
-        <Image
-          src={imageUrl}
-          alt={title}
-          layout="fill"
-          objectFit="cover"
-          className="mt-1 rounded-lg"
-        />
+        {imageUrl.length > 0 ? (
+          <Image
+            src={imageUrl}
+            alt={title}
+            layout="fill"
+            objectFit="cover"
+            className="mt-1 rounded-lg"
+          />
+        ) : (
+          <div className="size-full rounded-lg bg-slate-300" />
+        )}
       </div>
       <div className="mt-3">
         <h4 className="truncate text-lg font-bold">{title}</h4>
