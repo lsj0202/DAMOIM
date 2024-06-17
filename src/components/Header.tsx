@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import LoginModal from './Login/LoginModal';
 import SignUpModal from './SignUp/SignUpModal';
+import CreateSportsClub from './SportsClubs/CreateSportsClub';
 import { Button, Flex, Text, UserIcon } from './common';
 import Container from './layout/Container';
 import Wrapper from './layout/Wrapper';
@@ -22,6 +23,12 @@ const Header = () => {
   const handleSignUpModal = () => {
     overlay.open(({ isOpen, close }) => (
       <SignUpModal isOpen={isOpen} close={close} />
+    ));
+  };
+
+  const handleCreateSportsClubModal = () => {
+    overlay.open(({ isOpen, close }) => (
+      <CreateSportsClub isOpen={isOpen} close={close} />
     ));
   };
 
@@ -43,7 +50,9 @@ const Header = () => {
           <Flex items="center" gap={20}>
             {myProfile ? (
               <>
-                <Button size="md">스포츠 클럽 생성</Button>
+                <Button size="md" onClick={handleCreateSportsClubModal}>
+                  스포츠 클럽 생성
+                </Button>
                 <div
                   onClick={() => router.push(`/userProfile/${myProfile.id}`)}
                 >

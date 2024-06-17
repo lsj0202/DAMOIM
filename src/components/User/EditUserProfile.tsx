@@ -7,6 +7,7 @@ import { nanoid } from 'nanoid';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { MdClose } from 'react-icons/md';
 import { Flex, Text } from '../common';
 import ModalWrapper from '../layout/ModalWrapper';
 
@@ -74,9 +75,14 @@ const EditUserProfileModal = ({ isOpen, close }: ModalProps) => {
             direction="col"
             gap={10}
           >
-            <Text size="md" weight="semibold">
-              프로필 수정하기
-            </Text>
+            <Flex justify="between" items="center">
+              <Text size="md" weight="semibold">
+                프로필 수정하기
+              </Text>
+              <Text size="lg" weight="semibold" className="cursor-pointer">
+                <MdClose onClick={close} />
+              </Text>
+            </Flex>
             <label htmlFor="avatarInput">
               <Flex
                 className="relative size-[100px] rounded-full bg-gray-200"

@@ -1,5 +1,6 @@
 import { InputElement } from '@/constants/InputElement';
 import { useSignUp } from '@/hooks/account/useSignUp';
+import { ModalProps } from '@/types/Modal';
 import { UserProfile } from '@/types/UserProfile';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -7,12 +8,7 @@ import { MdClose } from 'react-icons/md';
 import { Button, Flex, Text } from '../common';
 import ModalWrapper from '../layout/ModalWrapper';
 
-interface SignUpModalProps {
-  isOpen: boolean;
-  close: () => void;
-}
-
-const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, close }) => {
+const SignUpModal = ({ isOpen, close }: ModalProps) => {
   const { register, handleSubmit, setValue } = useForm<UserProfile>();
 
   useEffect(() => {
