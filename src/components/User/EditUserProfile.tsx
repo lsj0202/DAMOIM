@@ -5,7 +5,7 @@ import { EditUserProfile } from '@/types/UserProfile';
 import supabase from '@/utils/supabase';
 import { nanoid } from 'nanoid';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdClose } from 'react-icons/md';
 import { Flex, Text } from '../common';
@@ -19,15 +19,15 @@ const EditUserProfileModal = ({ isOpen, close }: ModalProps) => {
   const myProfileInfo = myProfile as EditUserProfile;
   const myId = myProfile?.id as string;
 
-  const { register, handleSubmit, setValue } = useForm<EditUserProfile>({
-    defaultValues: {
-      name: '',
-      age: 0,
-      introduce: '',
-      location: '',
-      avatar_url: '',
-    },
-  });
+  const { register, handleSubmit, setValue } = useForm<EditUserProfile>();
+
+  useEffect(() => {
+    setValue('name', myProfileInfo?.name);
+    setValue('age', myProfileInfo?.age);
+    setValue('location', myProfileInfo?.location);
+    setValue('introduce', myProfileInfo?.introduce);
+    setValue('avatar_url', myProfileInfo?.avatar_url);
+  }, [myProfileInfo, setValue]);
 
   const [avatarPreview, setAvatarPreview] = useState<string | undefined>(
     myProfileInfo?.avatar_url,

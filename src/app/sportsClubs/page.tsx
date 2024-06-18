@@ -32,6 +32,8 @@ const SportsClubsPage = () => {
   const { data: sportsClubs } = useGetSportsClub();
   const sportsClub = sportsClubs?.data as CreateSportsClub[];
 
+  console.log('sportsClubsportsClubsportsClub', sportsClub);
+
   return (
     <>
       <Header />
@@ -64,6 +66,7 @@ const SportsClubsPage = () => {
               imageUrl={sportsClub.clubPoster || ''}
               title={sportsClub.title}
               subTitle={sportsClub.subTitle || ''}
+              heart={sportsClub.heart}
             />
           ))}
         </div>

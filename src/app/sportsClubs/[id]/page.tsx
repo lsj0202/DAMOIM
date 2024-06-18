@@ -27,7 +27,7 @@ const DetailSportsClub = () => {
 
   const { id } = useParams();
   const { data } = useGetClubDetail(Number(id));
-  console.log('datadata', data?.data);
+
   const sportsClub = data?.data as CreateSportsClub;
 
   return (
@@ -40,14 +40,14 @@ const DetailSportsClub = () => {
         <Flex className="border-b">
           <Flex items="center" justify="center" className="w-2/3">
             <Flex direction="col" className="h-[290px] w-full">
-              <Text size="md" weight="semibold">
-                지금 가입해보세요!
-              </Text>
-              <Text size="x" weight="semibold" className="mt-4">
+              <Text size="x" weight="semibold" className="my-4">
                 {sportsClub?.title}
               </Text>
-              <Text className="mt-10">평균 나이: 23세</Text>
-              <Text className="mt-3">총 리뷰: ★4.5</Text>
+              <Text className="min-h-[30px]">{sportsClub?.subTitle}</Text>
+              <Text className="mt-4">
+                총 리뷰: <span className="mr-[2px] text-yellow-400">★</span>
+                {sportsClub?.avgReview}
+              </Text>
               <Button className="mt-5" size="md">
                 가입하기
               </Button>
@@ -57,9 +57,6 @@ const DetailSportsClub = () => {
                 </Button>
                 <Button size="md" bgColor="gray">
                   공유하기
-                </Button>
-                <Button size="md" bgColor="gray">
-                  찜하기
                 </Button>
               </Flex>
             </Flex>
@@ -71,14 +68,19 @@ const DetailSportsClub = () => {
           >
             <Image
               className="rounded-lg"
-              src="/imgs/mockImg.jpeg"
+              src={sportsClub?.clubPoster || ''}
               width={300}
               height={300}
               alt=""
             />
           </Flex>
         </Flex>
-        <SportsClubSchedule />
+        <SportsClubSchedule
+          location={sportsClub?.location}
+          latitude={sportsClub?.latitude}
+          longitude={sportsClub?.longitude}
+          schedules={sportsClub?.schedules}
+        />
         <Flex className="min-h-[400px]" direction="col">
           <Text size="lg" weight="semibold" className="my-3">
             리뷰 보기

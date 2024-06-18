@@ -1,26 +1,29 @@
 import { useState } from 'react';
 import { SportsClubMap } from '..';
-import { Flex, Text } from '../common';
+import { Button, Flex, Text } from '../common';
+import { type Schedule } from './CreateSportsClub';
 import SportsClubMarkers from './SportsClubMarker';
 
-const SportsClubSchedule = () => {
+type SportsClubScheduleProps = {
+  location: string;
+  latitude: number;
+  longitude: number;
+  schedules?: Schedule[];
+};
+
+const SportsClubSchedule = ({
+  location,
+  latitude,
+  longitude,
+  schedules,
+}: SportsClubScheduleProps) => {
   const [map, setMap] = useState(null);
 
   const clubLocation = {
     C_NAME: '스포츠 클럽 위치',
-    X_CNTS: 35.17308711,
-    Y_DNTS: 129.12775978,
+    X_CNTS: latitude,
+    Y_DNTS: longitude,
   };
-
-  const schedule = [
-    { day: '월요일', time: '10:00 AM ~ 5:00 PM' },
-    { day: '화요일', time: '10:00 AM ~ 5:00 PM' },
-    { day: '수요일', time: '10:00 AM ~ 5:00 PM' },
-    { day: '목요일', time: '10:00 AM ~ 5:00 PM' },
-    { day: '금요일', time: '10:00 AM ~ 5:00 PM' },
-    { day: '토요일', time: '10:00 AM ~ 5:00 PM' },
-    { day: '일요일', time: '휴무' },
-  ];
 
   return (
     <Flex className="h-[450px] border-b">
@@ -37,20 +40,29 @@ const SportsClubSchedule = () => {
           <SportsClubMarkers location={clubLocation} map={map} />
         </Flex>
         <Text size="md" weight="semibold" className="mt-3.5">
-          🫵🏼 부산시 강서구 부산소프트웨어 마이스터고등학교
+          ⚓️ {location}
         </Text>
       </Flex>
       <Flex
-        className="h-full w-1/2"
+        className="h-full w-1/2 px-10"
         items="center"
         justify="center"
         direction="col"
-        gap={5}
+        gap={10}
       >
-        {schedule.map(({ day, time }) => (
-          <Text key={day} size="md">
-            {day}: {time}
-          </Text>
+        {schedules?.map(({ day, start, end }) => (
+          <Flex key={day} className="w-full" justify="between" items="center">
+            <Button size="md">{day}</Button> :
+            <Text>
+              <Button size="md" bgColor="gray">
+                {start}
+              </Button>
+              <Text className="mx-2">-</Text>
+              <Button size="md" bgColor="gray">
+                {end}
+              </Button>
+            </Text>
+          </Flex>
         ))}
       </Flex>
     </Flex>

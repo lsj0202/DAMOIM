@@ -1,8 +1,8 @@
 import Script from 'next/script';
 import { Dispatch, SetStateAction } from 'react';
 
-const DEFAULT_LAT = 35.17308711;
-const DEFAULT_LNG = 129.12775978;
+const DEFAULT_LAT = 36.5040736;
+const DEFAULT_LNG = 127.2494855;
 
 declare global {
   interface Window {
@@ -10,9 +10,9 @@ declare global {
   }
 }
 
-interface MapProps {
+type MapProps = {
   setMap: Dispatch<SetStateAction<any>>;
-}
+};
 
 const LoadKakaoMap = ({ setMap }: MapProps) => {
   const loadKakaoMap = () => {
@@ -21,12 +21,13 @@ const LoadKakaoMap = ({ setMap }: MapProps) => {
       const mapContainer = document.getElementById('map');
       const mapOption = {
         center: new window.kakao.maps.LatLng(DEFAULT_LAT, DEFAULT_LNG),
-        level: 3,
+        level: 13,
       };
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
       setMap(map);
     });
   };
+
   return (
     <>
       <Script

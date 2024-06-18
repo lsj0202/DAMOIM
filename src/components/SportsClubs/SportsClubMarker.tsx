@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 
-interface MarkerProps {
+type MarkerProps = {
   map: any;
   location: {
     C_NAME: string;
     X_CNTS: number;
     Y_DNTS: number;
   };
-}
+};
 
 const SportsClubMarkers = ({ map, location }: MarkerProps) => {
   useEffect(() => {

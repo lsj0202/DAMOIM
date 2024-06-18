@@ -10,7 +10,7 @@ import { MdClose } from 'react-icons/md';
 import { Button, Flex, Text } from '../common';
 import ModalWrapper from '../layout/ModalWrapper';
 
-type Schedule = {
+export type Schedule = {
   day: string;
   start: string;
   end: string;
@@ -68,7 +68,9 @@ const CreateSportsClub = ({ isOpen, close }: ModalProps) => {
   }, [debouncedValue]);
 
   const loadKakaoMap = () => {
-    window.kakao.maps.load(() => {});
+    window.kakao.maps.load(() => {
+      const mapContainer = document.getElementById('map');
+    });
   };
 
   const geocodeLocation = (address: string) => {

@@ -89,9 +89,10 @@ const Home = () => {
           <Flex wrap="wrap" gap={12} ref={clubRef}>
             {sportsClub?.map((sportsClub) => (
               <SportsClub
+                className="club"
                 key={sportsClub.id}
                 id={sportsClub.id}
-                className="club"
+                heart={sportsClub.heart}
                 imageUrl={sportsClub.clubPoster}
                 title={sportsClub.title}
                 subTitle={sportsClub.subTitle}

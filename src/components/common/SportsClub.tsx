@@ -1,7 +1,8 @@
+import { useUpdateHeart } from '@/hooks/sportsClub/useCreateHeart';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ForwardedRef, forwardRef } from 'react';
-import { CiHeart } from 'react-icons/ci';
+import { FaHeart } from 'react-icons/fa';
 import Flex from './Flex';
 
 export type SportsClubProps = {
@@ -28,6 +29,12 @@ const SportsClub = forwardRef(function SportsClub(
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   const router = useRouter();
+  const { createHeartMutate } = useUpdateHeart();
+
+  const handleCreateHeart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    createHeartMutate(id);
+  };
 
   return (
     <div
@@ -43,7 +50,7 @@ const SportsClub = forwardRef(function SportsClub(
             alt={title}
             layout="fill"
             objectFit="cover"
-            className="mt-1 rounded-lg"
+            className="mt-1 min-h-[200px] rounded-lg"
           />
         ) : (
           <div className="size-full rounded-lg bg-slate-300" />
@@ -51,10 +58,15 @@ const SportsClub = forwardRef(function SportsClub(
       </div>
       <div className="mt-3">
         <h4 className="truncate text-lg font-bold">{title}</h4>
-        <p className="truncate-2-lines text-sm text-gray-600">{subTitle}</p>
+        <p className="truncate-2-lines min-h-[40px] text-sm text-gray-600">
+          {subTitle}
+        </p>
         <Flex justify="end" className="mt-2">
-          <div className="flex items-center rounded-lg px-3 py-2 shadow-md">
-            <CiHeart size={17} />
+          <div
+            className="flex items-center rounded-lg px-3 py-2 shadow-md"
+            onClick={handleCreateHeart}
+          >
+            <FaHeart size={17} className="text-red-500" />
             <div className="ml-1">{heart}</div>
           </div>
         </Flex>
