@@ -8,7 +8,9 @@ import {
   Header,
   SearchSportsClubList,
 } from '@/components';
+import { CreateSportsClub } from '@/components/SportsClubs/CreateSportsClub';
 import { Flex, SportsClub } from '@/components/common';
+import { useGetSportsClub } from '@/hooks/sportsClub/useGetSportsClub';
 import { useRef } from 'react';
 import 'swiper/css';
 import 'swiper/css/autoplay';
@@ -26,6 +28,9 @@ const renderBanners = () => {
 const SportsClubsPage = () => {
   const swiperRef = useRef<SwiperClass | null>();
   const banners = renderBanners();
+
+  const { data: sportsClubs } = useGetSportsClub();
+  const sportsClub = sportsClubs?.data as CreateSportsClub[];
 
   return (
     <>
@@ -52,12 +57,13 @@ const SportsClubsPage = () => {
           </Swiper>
         </Flex>
         <div className="mb-14 mt-8 grid grid-cols-4 gap-4">
-          {[...Array(12)].map((_, index) => (
+          {sportsClub?.map((sportsClub) => (
             <SportsClub
-              key={index}
-              imageUrl="/imgs/mockImg.jpeg"
-              title="주 4회 헬스클럽 오픈!"
-              subTitle="우리동네 헬스장에서 같이 운동해요! 모든 문의는 채팅을 통해 주세요!"
+              key={sportsClub.id}
+              id={Number(sportsClub.id)}
+              imageUrl={sportsClub.clubPoster || ''}
+              title={sportsClub.title}
+              subTitle={sportsClub.subTitle || ''}
             />
           ))}
         </div>

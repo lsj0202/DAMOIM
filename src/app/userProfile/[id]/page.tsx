@@ -70,7 +70,7 @@ const UserProfilePage = () => {
         >
           <Flex>
             <div className="absolute left-8 mt-[40px]">
-              {userInfo?.avatar_url.length > 0 ? (
+              {userInfo?.avatar_url?.length > 0 ? (
                 <Image
                   className="rounded-lg"
                   src={userInfo?.avatar_url}

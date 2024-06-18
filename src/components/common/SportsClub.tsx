@@ -1,10 +1,11 @@
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { ForwardedRef, forwardRef } from 'react';
-import { AiOutlineEllipsis } from 'react-icons/ai';
 import { CiHeart } from 'react-icons/ci';
 import Flex from './Flex';
 
 export type SportsClubProps = {
+  id: number;
   isMyClub?: boolean;
   imageUrl: string;
   title: string;
@@ -15,6 +16,7 @@ export type SportsClubProps = {
 
 const SportsClub = forwardRef(function SportsClub(
   {
+    id,
     isMyClub = false,
     imageUrl,
     title,
@@ -25,15 +27,15 @@ const SportsClub = forwardRef(function SportsClub(
   }: SportsClubProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
+  const router = useRouter();
+
   return (
     <div
       ref={ref}
-      className={`flex h-[400px] w-[280px] flex-col rounded-lg bg-white p-4 shadow-lg ${className}`}
+      onClick={() => router.push(`/sportsClubs/${id}`)}
+      className={`flex h-[400px] w-[280px] cursor-pointer flex-col rounded-lg bg-white p-4 shadow-lg ${className}`}
       {...props}
     >
-      <Flex justify="end">
-        <AiOutlineEllipsis className="cursor-pointer" size={20} />
-      </Flex>
       <div className="relative size-full grow">
         {imageUrl.length > 0 ? (
           <Image
@@ -50,10 +52,9 @@ const SportsClub = forwardRef(function SportsClub(
       <div className="mt-3">
         <h4 className="truncate text-lg font-bold">{title}</h4>
         <p className="truncate-2-lines text-sm text-gray-600">{subTitle}</p>
-
         <Flex justify="end" className="mt-2">
           <div className="flex items-center rounded-lg px-3 py-2 shadow-md">
-            <CiHeart className="cursor-pointer" size={17} />
+            <CiHeart size={17} />
             <div className="ml-1">{heart}</div>
           </div>
         </Flex>

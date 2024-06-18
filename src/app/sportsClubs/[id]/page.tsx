@@ -7,8 +7,11 @@ import {
   SportsClubReviewItem,
   SportsClubSchedule,
 } from '@/components';
+import { CreateSportsClub } from '@/components/SportsClubs/CreateSportsClub';
 import { Button, Flex, Text } from '@/components/common';
+import { useGetClubDetail } from '@/hooks/sportsClub/useGetClubDetail';
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 
 const DetailSportsClub = () => {
   const reviews = [
@@ -21,6 +24,11 @@ const DetailSportsClub = () => {
         '지금 당장 가입하세요! 테니스 클럽에 가입하고 더 나은 삶을 살 수 있게 되었습니다. 지금 당장 가입하세요! 테니스 클럽에 가입하고 더 나은 삶을 살 수 있게 되었습니다.',
     },
   ];
+
+  const { id } = useParams();
+  const { data } = useGetClubDetail(Number(id));
+  console.log('datadata', data?.data);
+  const sportsClub = data?.data as CreateSportsClub;
 
   return (
     <>
@@ -36,7 +44,7 @@ const DetailSportsClub = () => {
                 지금 가입해보세요!
               </Text>
               <Text size="x" weight="semibold" className="mt-4">
-                테니스 클럽 🎾
+                {sportsClub?.title}
               </Text>
               <Text className="mt-10">평균 나이: 23세</Text>
               <Text className="mt-3">총 리뷰: ★4.5</Text>

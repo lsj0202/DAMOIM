@@ -3,7 +3,6 @@
 import { LoginElement } from '@/constants/InputElement';
 import { useLogin } from '@/hooks/account/useLogin';
 import { ModalProps } from '@/types/Modal';
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdClose } from 'react-icons/md';
 import { Button, Flex, Text } from '../common';
@@ -15,18 +14,13 @@ type LoginModalProps = {
 };
 
 const LoginModal = ({ isOpen, close }: ModalProps) => {
-  const { register, handleSubmit, setValue } = useForm<LoginModalProps>();
+  const { register, handleSubmit } = useForm<LoginModalProps>();
 
   const { loginMutate } = useLogin({ isOpen, close });
 
   const onSubmit = (formData: LoginModalProps) => {
     loginMutate(formData);
   };
-
-  useEffect(() => {
-    setValue('email', '');
-    setValue('password', '');
-  }, [setValue]);
 
   return (
     isOpen && (

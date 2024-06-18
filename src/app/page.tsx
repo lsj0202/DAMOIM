@@ -40,7 +40,7 @@ const Home = () => {
   }, [inView]);
 
   const { data: sportsClubs } = useGetSportsClub();
-  const sportsClub = sportsClubs?.data;
+  const sportsClub = sportsClubs?.data?.slice(0, 4);
 
   return (
     <>
@@ -90,6 +90,7 @@ const Home = () => {
             {sportsClub?.map((sportsClub) => (
               <SportsClub
                 key={sportsClub.id}
+                id={sportsClub.id}
                 className="club"
                 imageUrl={sportsClub.clubPoster}
                 title={sportsClub.title}

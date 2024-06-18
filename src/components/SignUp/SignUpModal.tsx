@@ -2,24 +2,13 @@ import { InputElement } from '@/constants/InputElement';
 import { useSignUp } from '@/hooks/account/useSignUp';
 import { ModalProps } from '@/types/Modal';
 import { UserProfile } from '@/types/UserProfile';
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdClose } from 'react-icons/md';
 import { Button, Flex, Text } from '../common';
 import ModalWrapper from '../layout/ModalWrapper';
 
 const SignUpModal = ({ isOpen, close }: ModalProps) => {
-  const { register, handleSubmit, setValue } = useForm<UserProfile>();
-
-  useEffect(() => {
-    setValue('email', '');
-    setValue('password', '');
-    setValue('name', '');
-    setValue('avatar_url', '');
-    setValue('age', 0);
-    setValue('location', '');
-    setValue('introduce', '');
-  }, [setValue]);
+  const { register, handleSubmit } = useForm<UserProfile>();
 
   const { signUpMutate } = useSignUp({ isOpen, close });
 
