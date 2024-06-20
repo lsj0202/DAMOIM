@@ -7,11 +7,23 @@ import {
   SportsClubReviewItem,
   SportsClubSchedule,
 } from '@/components';
+import { shareKakao } from '@/components/ShareKakao';
 import { CreateSportsClub } from '@/components/SportsClubs/CreateSportsClub';
+import ViewApplicationUsers from '@/components/SportsClubs/ViewApplicationUsers';
 import { Button, Flex, Text } from '@/components/common';
+import { useApplicationSportsClub } from '@/hooks/sportsClub/useApplicationSportsClub';
 import { useGetClubDetail } from '@/hooks/sportsClub/useGetClubDetail';
+import { useMyProfile } from '@/hooks/user/useMyProfile';
+import { useOverlay } from '@toss/use-overlay';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
+import { useEffect } from 'react';
+
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
 
 const DetailSportsClub = () => {
   const reviews = [
@@ -27,8 +39,40 @@ const DetailSportsClub = () => {
 
   const { id } = useParams();
   const { data } = useGetClubDetail(Number(id));
+  const { data: myProfile } = useMyProfile();
 
-  const sportsClub = data?.data as CreateSportsClub;
+  const sportsClub: CreateSportsClub = data?.data;
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://developers.kakao.com/sdk/js/kakao.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  const { applicationSportsClubMutate } = useApplicationSportsClub();
+
+  const handleJoinSportsClub = () => {
+    if (myProfile) {
+      const variables = {
+        userId: myProfile.id,
+        clubId: sportsClub.id as number,
+      };
+      applicationSportsClubMutate(variables);
+    }
+  };
+
+  const overlay = useOverlay();
+
+  const handleViewApplicationUsers = () => {
+    overlay.open(({ isOpen, close }) => (
+      <ViewApplicationUsers isOpen={isOpen} close={close} />
+    ));
+  };
 
   return (
     <>
@@ -44,21 +88,38 @@ const DetailSportsClub = () => {
                 {sportsClub?.title}
               </Text>
               <Text className="min-h-[30px]">{sportsClub?.subTitle}</Text>
-              <Text className="mt-4">
+              <Text className="mb-2 mt-4">
                 총 리뷰: <span className="mr-[2px] text-yellow-400">★</span>
                 {sportsClub?.avgReview}
               </Text>
-              <Button className="mt-5" size="md">
-                가입하기
-              </Button>
-              <Flex className="mt-3 w-full" gap={15}>
-                <Button size="md" bgColor="black">
-                  리뷰 작성하기
+              <Text>멤버 수: {sportsClub?.members.length}명</Text>
+              {sportsClub?.members.some(
+                (member) => member.id === myProfile?.id,
+              ) ? (
+                <Flex className="mt-10 w-full" gap={15}>
+                  <Button size="md" bgColor="black">
+                    리뷰 작성하기
+                  </Button>
+                  <Button
+                    size="md"
+                    bgColor="gray"
+                    onClick={() => shareKakao(sportsClub)}
+                  >
+                    공유하기
+                  </Button>
+                  <Button onClick={handleViewApplicationUsers}>
+                    신청자 목록 확인하기
+                  </Button>
+                </Flex>
+              ) : (
+                <Button
+                  className="mt-10"
+                  size="md"
+                  onClick={handleJoinSportsClub}
+                >
+                  가입하기
                 </Button>
-                <Button size="md" bgColor="gray">
-                  공유하기
-                </Button>
-              </Flex>
+              )}
             </Flex>
           </Flex>
           <Flex
@@ -66,13 +127,15 @@ const DetailSportsClub = () => {
             justify="center"
             className="h-[350px] w-1/3 bg-gray-100"
           >
-            <Image
-              className="rounded-lg"
-              src={sportsClub?.clubPoster || ''}
-              width={300}
-              height={300}
-              alt=""
-            />
+            {sportsClub?.clubPoster && (
+              <Image
+                className="rounded-lg"
+                src={sportsClub?.clubPoster || ''}
+                width={300}
+                height={300}
+                alt=""
+              />
+            )}
           </Flex>
         </Flex>
         <SportsClubSchedule

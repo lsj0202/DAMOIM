@@ -19,7 +19,7 @@ const ButtonVariants = cva('', {
       xl: 'w-48 rounded-xl py-5 font-bold',
       lg: 'w-40 rounded-lg py-4 font-semibold',
       md: 'w-36 rounded-lg py-3 font-semibold',
-      sm: 'w-28 rounded-md py-2 font-medium',
+      sm: 'w-28 rounded-md py-3 font-medium',
     },
     color: {
       white: 'text-white',

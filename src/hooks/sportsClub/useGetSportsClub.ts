@@ -3,7 +3,11 @@ import supabase from '@/utils/supabase';
 import { useQuery } from '@tanstack/react-query';
 
 const getSportsClub = async () => {
-  const { data } = await supabase.from('sportsclub').select('*');
+  const { data } = await supabase
+    .from('sportsclub')
+    .select('*')
+    .order('heart', { ascending: false });
+
   return { data };
 };
 

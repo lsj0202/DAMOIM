@@ -1,6 +1,7 @@
 import { useCreateSportsClub } from '@/hooks/sportsClub/useCreateSportsClub';
 import useDebounce from '@/hooks/useDebounce';
 import { ModalProps } from '@/types/Modal';
+import { UserProfile } from '@/types/UserProfile';
 import supabase from '@/utils/supabase';
 import { nanoid } from 'nanoid';
 import Script from 'next/script';
@@ -28,6 +29,7 @@ export type CreateSportsClub = {
   avgAge: number;
   avgReview: number;
   clubPoster?: string;
+  members: UserProfile & { id: string }[];
 };
 
 declare global {
