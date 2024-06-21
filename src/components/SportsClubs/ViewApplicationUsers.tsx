@@ -12,7 +12,7 @@ export type ApplicationUserType = {
 
 const ViewApplicationUsers = ({ isOpen, close }: ModalProps) => {
   const { id } = useParams();
-  const { data } = useGetApplicationPeople(Number(id));
+  const { data } = useGetApplicationPeople(String(id));
   const applicationPeopleData: ApplicationUserType[] = data?.data || [];
 
   return (

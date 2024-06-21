@@ -1,5 +1,7 @@
 import { useCreateSportsClub } from '@/hooks/sportsClub/useCreateSportsClub';
 import useDebounce from '@/hooks/useDebounce';
+import { useMyProfile } from '@/hooks/user/useMyProfile';
+import { useUserProfile } from '@/hooks/user/useUserProfile';
 import { ModalProps } from '@/types/Modal';
 import { UserProfile } from '@/types/UserProfile';
 import supabase from '@/utils/supabase';
@@ -18,7 +20,7 @@ export type Schedule = {
 };
 
 export type CreateSportsClub = {
-  id?: number;
+  id: string;
   title: string;
   subTitle?: string;
   location: string;
@@ -29,7 +31,7 @@ export type CreateSportsClub = {
   avgAge: number;
   avgReview: number;
   clubPoster?: string;
-  members: UserProfile & { id: string }[];
+  members: UserProfile[];
 };
 
 declare global {
@@ -62,20 +64,23 @@ const CreateSportsClub = ({ isOpen, close }: ModalProps) => {
 
   const location = watch('location');
   const debouncedValue = useDebounce({ value: location, delay: 200 });
+  const { data: myProfile } = useMyProfile();
+  const [isKakaoMapLoaded, setIsKakaoMapLoaded] = useState(false);
 
   useEffect(() => {
-    if (debouncedValue) {
+    if (debouncedValue && isKakaoMapLoaded) {
       geocodeLocation(debouncedValue);
     }
-  }, [debouncedValue]);
+  }, [debouncedValue, isKakaoMapLoaded]);
 
   const loadKakaoMap = () => {
     window.kakao.maps.load(() => {
-      const mapContainer = document.getElementById('map');
+      setIsKakaoMapLoaded(true);
     });
   };
 
   const geocodeLocation = (address: string) => {
+    if (!isKakaoMapLoaded) return;
     const geocoder = new window.kakao.maps.services.Geocoder();
     geocoder.addressSearch(address, (result: any, status: any) => {
       if (status === window.kakao.maps.services.Status.OK) {
@@ -108,10 +113,17 @@ const CreateSportsClub = ({ isOpen, close }: ModalProps) => {
     }
   };
 
+  const { data: userInfo } = useUserProfile(String(myProfile?.id));
+
   const { createSportsClubMutate } = useCreateSportsClub({ close });
 
-  const onSubmit: SubmitHandler<CreateSportsClub> = (data) => {
-    createSportsClubMutate({ data });
+  const onSubmit: SubmitHandler<CreateSportsClub> = async (data) => {
+    const sportsClubData: CreateSportsClub = {
+      ...data,
+      members: [{ ...userInfo, id: String(myProfile?.id) }],
+    };
+
+    createSportsClubMutate({ data: sportsClubData });
   };
 
   return (

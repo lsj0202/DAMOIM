@@ -6,7 +6,7 @@ import { FaHeart } from 'react-icons/fa';
 import Flex from './Flex';
 
 export type SportsClubProps = {
-  id: number;
+  id: string;
   isMyClub?: boolean;
   imageUrl: string;
   title: string;

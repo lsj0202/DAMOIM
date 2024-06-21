@@ -16,11 +16,11 @@ const ApplicationUser = ({ data }: { data: ApplicationUserType }) => {
   const { deleteApplicationMutate } = useDeleteApplicationSportsClub();
 
   const handleAcceptApplication = () => {
-    acceptApplicationMutate({ userId: userProfile?.id, clubId: Number(id) });
+    acceptApplicationMutate({ userId: userProfile?.id, clubId: String(id) });
   };
 
   const handleDeleteApplication = () => {
-    deleteApplicationMutate({ userId: userProfile?.id, clubId: Number(id) });
+    deleteApplicationMutate({ userId: userProfile?.id, clubId: String(id) });
   };
 
   return (

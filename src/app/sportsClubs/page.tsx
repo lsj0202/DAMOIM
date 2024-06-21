@@ -60,7 +60,7 @@ const SportsClubsPage = () => {
           {sportsClub?.map((sportsClub) => (
             <SportsClub
               key={sportsClub.id}
-              id={Number(sportsClub.id)}
+              id={sportsClub.id}
               imageUrl={sportsClub.clubPoster || ''}
               title={sportsClub.title}
               subTitle={sportsClub.subTitle || ''}

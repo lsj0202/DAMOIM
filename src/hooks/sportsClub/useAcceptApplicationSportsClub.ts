@@ -1,4 +1,4 @@
-import { UserProfile, application, sportsClub } from '@/constants/UserKey';
+import { application, sportsClub } from '@/constants/UserKey';
 import supabase from '@/utils/supabase';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { ApplicationVariables } from './useApplicationSportsClub';
@@ -36,13 +36,12 @@ const acceptApplication = async ({ userId, clubId }: ApplicationVariables) => {
     },
   ];
 
-  // sportsclub 테이블의 members 컬럼을 업데이트합니다.
   const { data: updatedClubData } = await supabase
     .from('sportsclub')
     .update({ members: updatedMembers })
     .eq('id', clubId);
 
-  return { applicationData, updatedClubData };
+  return { updatedClubData };
 };
 
 export const useAcceptApplication = () => {
@@ -53,10 +52,9 @@ export const useAcceptApplication = () => {
       acceptApplication({ userId, clubId }),
     mutationKey: [sportsClub, application],
     onSuccess: () => {
-      alert('수락되었어요!');
       queryClient.invalidateQueries({ queryKey: [sportsClub] });
-      queryClient.invalidateQueries({ queryKey: [UserProfile] });
       queryClient.invalidateQueries({ queryKey: [application] });
+      alert('수락되었어요!');
     },
   });
 

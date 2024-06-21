@@ -1,8 +1,8 @@
-import { sportsClub } from '@/constants/UserKey';
+import { application, sportsClub } from '@/constants/UserKey';
 import supabase from '@/utils/supabase';
 import { useQuery } from '@tanstack/react-query';
 
-const getClubDetail = async (id: number) => {
+const getClubDetail = async (id: string) => {
   const { data, error } = await supabase
     .from('sportsclub')
     .select('*')
@@ -11,9 +11,9 @@ const getClubDetail = async (id: number) => {
   return { data, error };
 };
 
-export const useGetClubDetail = (id: number) => {
+export const useGetClubDetail = (id: string) => {
   const { data, ...queries } = useQuery({
-    queryKey: [sportsClub, id],
+    queryKey: [sportsClub, id, application],
     queryFn: () => getClubDetail(id),
     enabled: !!id,
   });

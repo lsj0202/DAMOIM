@@ -2,7 +2,7 @@ import { sportsClub } from '@/constants/UserKey';
 import supabase from '@/utils/supabase';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const updateHeart = async (id: number) => {
+const updateHeart = async (id: string) => {
   const { data, error } = await supabase
     .from('sportsclub')
     .select('heart')
@@ -24,7 +24,7 @@ export const useUpdateHeart = () => {
   const queryClient = useQueryClient();
 
   const { mutate: createHeartMutate } = useMutation({
-    mutationFn: (id: number) => updateHeart(id),
+    mutationFn: (id: string) => updateHeart(id),
     mutationKey: [sportsClub],
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [sportsClub] });

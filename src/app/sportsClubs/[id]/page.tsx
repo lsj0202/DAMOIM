@@ -38,7 +38,7 @@ const DetailSportsClub = () => {
   ];
 
   const { id } = useParams();
-  const { data } = useGetClubDetail(Number(id));
+  const { data } = useGetClubDetail(String(id));
   const { data: myProfile } = useMyProfile();
 
   const sportsClub: CreateSportsClub = data?.data;
@@ -58,11 +58,10 @@ const DetailSportsClub = () => {
 
   const handleJoinSportsClub = () => {
     if (myProfile) {
-      const variables = {
+      applicationSportsClubMutate({
         userId: myProfile.id,
-        clubId: sportsClub.id as number,
-      };
-      applicationSportsClubMutate(variables);
+        clubId: sportsClub.id,
+      });
     }
   };
 
@@ -92,9 +91,9 @@ const DetailSportsClub = () => {
                 총 리뷰: <span className="mr-[2px] text-yellow-400">★</span>
                 {sportsClub?.avgReview}
               </Text>
-              <Text>멤버 수: {sportsClub?.members.length}명</Text>
-              {sportsClub?.members.some(
-                (member) => member.id === myProfile?.id,
+              <Text>멤버 수: {sportsClub?.members?.length}명</Text>
+              {sportsClub?.members?.some(
+                (member) => member?.id === myProfile?.id,
               ) ? (
                 <Flex className="mt-10 w-full" gap={15}>
                   <Button size="md" bgColor="black">
