@@ -9,6 +9,7 @@ import {
 } from '@/components';
 import { shareKakao } from '@/components/ShareKakao';
 import { CreateSportsClub } from '@/components/SportsClubs/CreateSportsClub';
+import SportsClubDashBoard from '@/components/SportsClubs/SportsClubDashBoard';
 import SportsClubReview from '@/components/SportsClubs/SportsClubReview';
 import ViewApplicationUsers from '@/components/SportsClubs/ViewApplicationUsers';
 import { Button, Flex, Text } from '@/components/common';
@@ -81,6 +82,12 @@ const DetailSportsClub = () => {
     ));
   };
 
+  const handleDashBoard = () => {
+    overlay.open(({ isOpen, close }) => (
+      <SportsClubDashBoard isOpen={isOpen} close={close} />
+    ));
+  };
+
   const [totalRating, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -130,6 +137,9 @@ const DetailSportsClub = () => {
                   </Button>
                   <Button onClick={handleViewApplicationUsers}>
                     신청자 목록 확인하기
+                  </Button>
+                  <Button bgColor="gray" onClick={handleDashBoard}>
+                    게시판
                   </Button>
                 </Flex>
               ) : (

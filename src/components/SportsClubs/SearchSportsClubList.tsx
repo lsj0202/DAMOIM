@@ -20,67 +20,11 @@ const SearchSportsClubList = () => {
   const texts = [
     {
       id: 0,
-      name: 'search1',
+      name: '부산소프트웨어 마이스터고등학교',
     },
     {
       id: 1,
-      name: 'search2',
-    },
-    {
-      id: 2,
-      name: 'search3',
-    },
-    {
-      id: 3,
-      name: 'search4',
-    },
-    {
-      id: 4,
-      name: 'search5',
-    },
-    {
-      id: 5,
-      name: 'search6',
-    },
-    {
-      id: 6,
-      name: 'search7',
-    },
-    {
-      id: 7,
-      name: 'search8',
-    },
-    {
-      id: 8,
-      name: 'search9',
-    },
-    {
-      id: 9,
-      name: 'search10',
-    },
-    {
-      id: 10,
-      name: 'search11',
-    },
-    {
-      id: 11,
-      name: 'search12',
-    },
-    {
-      id: 12,
-      name: 'search13',
-    },
-    {
-      id: 13,
-      name: 'search14',
-    },
-    {
-      id: 14,
-      name: 'search15',
-    },
-    {
-      id: 15,
-      name: 'search16',
+      name: '헬스동아리',
     },
   ];
 
