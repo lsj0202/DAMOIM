@@ -32,6 +32,13 @@ export type CreateSportsClub = {
   avgReview: number;
   clubPoster?: string;
   members: UserProfile[];
+  reviews?: {
+    id: string;
+    rating: number;
+    review: string;
+    avatar_url: string;
+    name: string;
+  }[];
 };
 
 declare global {

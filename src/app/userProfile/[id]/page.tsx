@@ -1,9 +1,11 @@
 'use client';
 
-import { Container, Footer, Header, SportsClubReviewItem } from '@/components';
+import { Container, Footer, Header } from '@/components';
+import { CreateSportsClub } from '@/components/SportsClubs/CreateSportsClub';
 import EditUserProfile from '@/components/User/EditUserProfile';
-import { Button, Flex, Text, UserIcon } from '@/components/common';
+import { Button, Flex, SportsClub, Text, UserIcon } from '@/components/common';
 import { useLogout } from '@/hooks/account/useLogout';
+import { useGetSportsClub } from '@/hooks/sportsClub/useGetSportsClub';
 import { useMyProfile } from '@/hooks/user/useMyProfile';
 import { useUserProfile } from '@/hooks/user/useUserProfile';
 import { UserProfile } from '@/types/UserProfile';
@@ -17,7 +19,7 @@ const UserProfilePage = () => {
 
   const { data: myProfile } = useMyProfile();
   const { data: userProfile } = useUserProfile(userId);
-
+  const { data: sportsClub } = useGetSportsClub();
   const { logoutMutate } = useLogout();
 
   const userInfo: UserProfile = userProfile;
@@ -30,32 +32,13 @@ const UserProfilePage = () => {
     ));
   };
 
-  const reviews = [
-    {
-      name: '이상진',
-      rating: '★★★★★',
-      clubName: '테니스 클럽',
-      imageSrc: '/imgs/mockImg.jpeg',
-      reviewText:
-        '지금 당장 가입하세요! 테니스 클럽에 가입하고 더 나은 삶을 살 수 있게 되었습니다. 지금 당장 가입하세요! 테니스 클럽에 가입하고 더 나은 삶을 살 수 있게 되었습니다.',
-    },
-    {
-      name: '이상진',
-      rating: '★★★★★',
-      clubName: '탁구 클럽',
-      imageSrc: '/imgs/mockImg.jpeg',
-      reviewText:
-        '지금 당장 가입하세요! 테니스 클럽에 가입하고 더 나은 삶을 살 수 있게 되었습니다. 지금 당장 가입하세요! 테니스 클럽에 가입하고 더 나은 삶을 살 수 있게 되었습니다.',
-    },
-    {
-      name: '이상진',
-      rating: '★★★★★',
-      clubName: '헬스 클럽',
-      imageSrc: '/imgs/mockImg.jpeg',
-      reviewText:
-        '지금 당장 가입하세요! 테니스 클럽에 가입하고 더 나은 삶을 살 수 있게 되었습니다. 지금 당장 가입하세요! 테니스 클럽에 가입하고 더 나은 삶을 살 수 있게 되었습니다.',
-    },
-  ];
+  const dataSportsClub: CreateSportsClub[] = sportsClub?.data ?? [];
+
+  const userClubs = dataSportsClub.filter((club) =>
+    club.members.some((member) => member.id === userProfile?.id),
+  );
+
+  console.log('dataSportsClub', dataSportsClub);
 
   return (
     <>
@@ -118,15 +101,15 @@ const UserProfilePage = () => {
           <Text size="lg" weight="semibold" className="my-3">
             스포츠 클럽 활동
           </Text>
-          <div className="grid grid-cols-2 gap-4">
-            {reviews.map((review, index) => (
-              <SportsClubReviewItem
-                key={index}
-                name={review.name}
-                clubName={review.clubName}
-                rating={review.rating}
-                imageSrc={review.imageSrc}
-                reviewText={review.reviewText}
+          <div className="mb-14 mt-8 grid grid-cols-4 gap-4">
+            {userClubs.map((club, idx) => (
+              <SportsClub
+                key={idx}
+                id={club.id}
+                heart={club.heart}
+                imageUrl={String(club.clubPoster)}
+                title={club.title}
+                subTitle={String(club.subTitle)}
               />
             ))}
           </div>

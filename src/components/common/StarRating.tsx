@@ -1,15 +1,22 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { FaStar, FaStarHalfAlt } from 'react-icons/fa';
 import Flex from './Flex';
 
-const StarRating = () => {
-  const [score, setScore] = useState(0);
+type StarRatingProps = {
+  score: number;
+  setScore: Dispatch<SetStateAction<number>>;
+};
+
+const StarRating = ({ score, setScore }: StarRatingProps) => {
   const [scoreFixed, setScoreFixed] = useState(score);
 
   const handleLeftEnter = (id: number) => setScore(id + 0.5);
   const handleRightEnter = (id: number) => setScore(id + 1);
 
-  const handleStarClick = () => setScoreFixed(score);
+  const handleStarClick = () => {
+    setScoreFixed(score);
+  };
+
   const handleStarLeave = () => {
     if (score !== scoreFixed) setScore(scoreFixed);
   };

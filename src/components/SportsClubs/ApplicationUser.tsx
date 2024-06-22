@@ -1,13 +1,17 @@
 import { useAcceptApplication } from '@/hooks/sportsClub/useAcceptApplicationSportsClub';
 import { useDeleteApplicationSportsClub } from '@/hooks/sportsClub/useDeleteApplicationSportsClub';
 import { useUserProfile } from '@/hooks/user/useUserProfile';
+import { ModalProps } from '@/types/Modal';
 import { UserProfile } from '@/types/UserProfile';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { Button, Flex, Text, UserIcon } from '../common';
 import { type ApplicationUserType } from './ViewApplicationUsers';
 
-const ApplicationUser = ({ data }: { data: ApplicationUserType }) => {
+const ApplicationUser = ({
+  data,
+  close,
+}: { data: ApplicationUserType } & ModalProps) => {
   const { data: userProfile } = useUserProfile(data.user_id);
   const userProfileInfo: UserProfile = userProfile;
   const { id } = useParams();

@@ -23,14 +23,21 @@ const ViewApplicationUsers = ({ isOpen, close }: ModalProps) => {
           direction="col"
         >
           <Flex items="center" justify="between">
-            <Text size="md">가입 신청 유저</Text>
+            <Text size="md" weight="semibold">
+              가입 신청 유저
+            </Text>
             <Text size="lg" className="cursor-pointer">
               <MdClose onClick={close} />
             </Text>
           </Flex>
           <div className="min-h-[500px] w-full overflow-y-auto pt-4">
             {applicationPeopleData?.map((data) => (
-              <ApplicationUser key={data.user_id} data={data} />
+              <ApplicationUser
+                key={data.user_id}
+                data={data}
+                isOpen={isOpen}
+                close={close}
+              />
             ))}
           </div>
         </Flex>

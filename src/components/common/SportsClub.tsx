@@ -44,7 +44,7 @@ const SportsClub = forwardRef(function SportsClub(
       {...props}
     >
       <div className="relative size-full grow">
-        {imageUrl.length > 0 ? (
+        {imageUrl?.length > 0 ? (
           <Image
             src={imageUrl}
             alt={title}

@@ -9,15 +9,17 @@ import {
 } from '@/components';
 import { shareKakao } from '@/components/ShareKakao';
 import { CreateSportsClub } from '@/components/SportsClubs/CreateSportsClub';
+import SportsClubReview from '@/components/SportsClubs/SportsClubReview';
 import ViewApplicationUsers from '@/components/SportsClubs/ViewApplicationUsers';
 import { Button, Flex, Text } from '@/components/common';
 import { useApplicationSportsClub } from '@/hooks/sportsClub/useApplicationSportsClub';
+
 import { useGetClubDetail } from '@/hooks/sportsClub/useGetClubDetail';
 import { useMyProfile } from '@/hooks/user/useMyProfile';
 import { useOverlay } from '@toss/use-overlay';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useReducer } from 'react';
 
 declare global {
   interface Window {
@@ -25,18 +27,18 @@ declare global {
   }
 }
 
-const DetailSportsClub = () => {
-  const reviews = [
-    {
-      name: '이상진',
-      rating: '★★★★★',
-      clubName: '헬스 클럽',
-      imageSrc: '/imgs/mockImg.jpeg',
-      reviewText:
-        '지금 당장 가입하세요! 테니스 클럽에 가입하고 더 나은 삶을 살 수 있게 되었습니다. 지금 당장 가입하세요! 테니스 클럽에 가입하고 더 나은 삶을 살 수 있게 되었습니다.',
-    },
-  ];
+const initialState = 0;
 
+const reducer = (state: number, action: any) => {
+  switch (action.type) {
+    case 'ADD_RATING':
+      return state + action.payload;
+    default:
+      return state;
+  }
+};
+
+const DetailSportsClub = () => {
   const { id } = useParams();
   const { data } = useGetClubDetail(String(id));
   const { data: myProfile } = useMyProfile();
@@ -73,6 +75,26 @@ const DetailSportsClub = () => {
     ));
   };
 
+  const handleReviewModal = () => {
+    overlay.open(({ isOpen, close }) => (
+      <SportsClubReview isOpen={isOpen} close={close} />
+    ));
+  };
+
+  const [totalRating, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    if (sportsClub?.reviews) {
+      sportsClub.reviews.forEach((review) => {
+        dispatch({ type: 'ADD_RATING', payload: review.rating });
+      });
+    }
+  }, [sportsClub?.reviews]);
+
+  const averageRating = sportsClub?.reviews?.length
+    ? totalRating / sportsClub.reviews.length
+    : 0;
+
   return (
     <>
       <Header />
@@ -82,21 +104,21 @@ const DetailSportsClub = () => {
       >
         <Flex className="border-b">
           <Flex items="center" justify="center" className="w-2/3">
-            <Flex direction="col" className="h-[290px] w-full">
+            <Flex direction="col" className="mr-6 h-[290px] w-full">
               <Text size="x" weight="semibold" className="my-4">
                 {sportsClub?.title}
               </Text>
               <Text className="min-h-[30px]">{sportsClub?.subTitle}</Text>
               <Text className="mb-2 mt-4">
                 총 리뷰: <span className="mr-[2px] text-yellow-400">★</span>
-                {sportsClub?.avgReview}
+                {averageRating.toFixed(1)}
               </Text>
               <Text>멤버 수: {sportsClub?.members?.length}명</Text>
               {sportsClub?.members?.some(
                 (member) => member?.id === myProfile?.id,
               ) ? (
                 <Flex className="mt-10 w-full" gap={15}>
-                  <Button size="md" bgColor="black">
+                  <Button size="md" bgColor="black" onClick={handleReviewModal}>
                     리뷰 작성하기
                   </Button>
                   <Button
@@ -148,16 +170,15 @@ const DetailSportsClub = () => {
             리뷰 보기
           </Text>
           <div className="grid grid-cols-2 gap-4">
-            {reviews.map((review, index) => (
+            {sportsClub?.reviews?.map((review) => (
               <SportsClubReviewItem
-                key={index}
+                key={review.id}
                 name={review.name}
-                clubName={review.clubName}
+                review={review.review}
                 rating={review.rating}
-                imageSrc={review.imageSrc}
-                reviewText={review.reviewText}
+                avatar_url={review.avatar_url}
               />
-            ))}
+            )) ?? <Text>리뷰가 없습니다.</Text>}
           </div>
         </Flex>
       </Container>
