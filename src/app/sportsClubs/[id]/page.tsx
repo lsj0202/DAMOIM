@@ -20,24 +20,13 @@ import { useMyProfile } from '@/hooks/user/useMyProfile';
 import { useOverlay } from '@toss/use-overlay';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { useEffect, useReducer } from 'react';
+import { useEffect, useState } from 'react';
 
 declare global {
   interface Window {
     Kakao: any;
   }
 }
-
-const initialState = 0;
-
-const reducer = (state: number, action: any) => {
-  switch (action.type) {
-    case 'ADD_RATING':
-      return state + action.payload;
-    default:
-      return state;
-  }
-};
 
 const DetailSportsClub = () => {
   const { id } = useParams();
@@ -88,19 +77,17 @@ const DetailSportsClub = () => {
     ));
   };
 
-  const [totalRating, dispatch] = useReducer(reducer, initialState);
+  const [averageRating, setAverageRating] = useState(0);
 
   useEffect(() => {
     if (sportsClub?.reviews) {
-      sportsClub.reviews.forEach((review) => {
-        dispatch({ type: 'ADD_RATING', payload: review.rating });
-      });
+      const total = sportsClub.reviews.reduce(
+        (sum, review) => sum + review.rating,
+        0,
+      );
+      setAverageRating(total / sportsClub.reviews.length);
     }
   }, [sportsClub?.reviews]);
-
-  const averageRating = sportsClub?.reviews?.length
-    ? totalRating / sportsClub.reviews.length
-    : 0;
 
   return (
     <>

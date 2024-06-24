@@ -67,7 +67,6 @@ export const useCreateDashBoard = () => {
     mutationKey: [sportsClub],
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [sportsClub] });
-      alert('게시글이 작성되었어요!');
     },
   });
 

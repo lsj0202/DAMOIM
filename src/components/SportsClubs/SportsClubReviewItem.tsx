@@ -25,7 +25,7 @@ const SportsClubReviewItem = ({
             src={avatar_url}
             width={60}
             height={60}
-            className="cursor-pointer rounded-full border border-black"
+            className="min-h-[60px] cursor-pointer rounded-[50%] border border-black"
             alt=""
           />
         ) : (

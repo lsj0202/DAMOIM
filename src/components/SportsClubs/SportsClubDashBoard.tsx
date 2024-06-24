@@ -45,16 +45,16 @@ const SportsClubDashBoard = ({ isOpen, close }: ModalProps) => {
   return (
     isOpen && (
       <ModalWrapper isOpen={isOpen} close={close}>
-        <div className="flex h-[700px] w-[500px] flex-col gap-5 rounded-lg bg-white p-5">
+        <div className="flex h-[700px] w-[500px] flex-col rounded-lg bg-white p-5">
+          <Flex items="center" justify="between" className="mb-3 w-full">
+            <Text size="md" weight="semibold">
+              공지사항 게시판
+            </Text>
+            <Text size="lg" className="cursor-pointer">
+              <MdClose onClick={close} />
+            </Text>
+          </Flex>
           <div className="h-[90%] w-full overflow-y-scroll">
-            <Flex items="center" justify="between" className="mb-3 w-full">
-              <Text size="md" weight="semibold">
-                공지사항 게시판
-              </Text>
-              <Text size="lg" className="cursor-pointer">
-                <MdClose onClick={close} />
-              </Text>
-            </Flex>
             {messageArray.map((message) => (
               <div
                 key={message.id}
